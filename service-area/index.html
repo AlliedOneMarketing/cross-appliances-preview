@@ -50,13 +50,26 @@
     <a class="u-phone" href="tel:+18173749412"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 3h4l2 5-2.5 1.5a12 12 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2z"/></svg>817-374-9412</a>
     <span class="u-sep">·</span><span class="u-item">Mon–Fri 9–6 &nbsp;·&nbsp; Sat 9–4 &nbsp;·&nbsp; Closed Sun</span>
     <span class="u-right">Family Owned · Delivery Available</span>
+    <button class="langsw" id="langsw" onclick="toggleLang()" data-nt>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9S14.5 18.3 12 21c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z"/></svg>
+      <b id="langlbl">En Español</b>
+    </button>
   </div></div>
   <div class="mainbar"><div class="wrap">
     <a class="logo" href="/" style="text-decoration:none">Cross<em>·</em>Appliances</a>
     <nav class="nav">
-      <a href="/" style="text-decoration:none"><button>Shop Inventory</button></a>
-      <a href="/service-area/" style="text-decoration:none"><button>Service Area</button></a>
-      <a href="/reviews/" style="text-decoration:none"><button>Reviews</button></a>
+      <a href="/#shop" style="text-decoration:none"><button>Shop Inventory</button></a>
+      <a href="/#delivery" style="text-decoration:none"><button>Delivery</button></a>
+      <a href="/#service" style="text-decoration:none"><button>Repair</button></a>
+      <a href="/#financing" style="text-decoration:none"><button>Financing</button></a>
+      <div class="navitem" id="aboutItem">
+        <button onclick="toggleAbout(event)">About Us <svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 9l7 7 7-7"/></svg></button>
+        <div class="navmenu">
+          <a href="/#locations"><b>Our Locations</b><span>Both Weatherford stores, hours and directions</span></a>
+          <a href="/service-area/"><b>Service Area</b><span>16 towns across Parker County</span></a>
+          <a href="/reviews/"><b>Reviews</b><span>What Google, Facebook and Yelp say</span></a>
+        </div>
+      </div>
     </nav>
     <a class="callbtn" href="tel:+18173749412" style="display:inline-flex"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 3h4l2 5-2.5 1.5a12 12 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2z"/></svg><b>Call</b></a>
   </div></div>
@@ -75,6 +88,7 @@
     <div class="b"><a class="btn b-rust" href="tel:+18173749412" style="text-decoration:none">Call 817-374-9412</a></div>
   </div>
 </div></div>
+<script>window.ES_PAGE={"Where we deliver": "A dónde entregamos", "Parker County": "Condado de Parker", "and out from there": "y más allá", "Two stores in Weatherford, one truck route east toward Fort Worth and one running west and north. Flat $79 delivery inside Parker County, including install and haul-away of the old unit.": "Dos tiendas en Weatherford, una ruta de camión al este hacia Fort Worth y otra que corre al oeste y al norte. Entrega fija de $79 dentro del condado de Parker, incluyendo instalación y retiro de la unidad vieja.", "Call 817-374-9412": "Llame al 817-374-9412"};</script>
 
 <footer class="site"><div class="wrap">
   <div class="fgrid">
@@ -118,6 +132,15 @@
                    : 'https://www.google.com/maps/dir/?api=1&destination=' + q;
     a.target = '_blank'; a.rel = 'noopener';
   }
+  window.toggleAbout = function(e){
+    e.stopPropagation();
+    var el = document.getElementById('aboutItem');
+    if (el) el.classList.toggle('open');
+  };
+  function closeAbout(){ var el = document.getElementById('aboutItem'); if (el) el.classList.remove('open'); }
+  document.addEventListener('click', closeAbout);
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeAbout(); });
 })();
 </script>
+<script src="/i18n.js" defer></script>
 </body></html>

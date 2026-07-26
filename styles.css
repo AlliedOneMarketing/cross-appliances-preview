@@ -40,17 +40,37 @@ footer.site{margin-top:auto}
 .u-sep{color:#454c52}
 .u-item{color:var(--brushed);font-size:11.5px}
 .u-right{margin-left:auto;font-family:var(--fh);font-weight:700;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--brushed)}
+.langsw{display:inline-flex;align-items:center;gap:6px;margin-left:14px;padding:5px 11px;min-height:24px;
+  border:1px solid rgba(244,241,236,.28);color:var(--paper);background:transparent;
+  font-family:var(--fh);font-weight:800;font-size:10px;letter-spacing:.13em;text-transform:uppercase;cursor:pointer;transition:.15s}
+.langsw svg{width:12px;height:12px;color:var(--rust);flex:0 0 auto}
+.langsw:hover{background:var(--rust);border-color:var(--rust);color:#fff}
+.langsw:hover svg{color:#fff}
 
 /* main bar */
 .mainbar{background:var(--graphite);color:var(--paper);border-bottom:1px solid rgba(255,255,255,.09)}
 .mainbar .wrap{display:flex;align-items:center;gap:14px;height:64px}
 .logo{font-family:var(--fh);font-weight:900;font-size:19px;letter-spacing:-.01em;text-transform:uppercase;white-space:nowrap;cursor:pointer;flex:0 0 auto}
 .logo em{font-style:normal;color:var(--rust)}
-.nav{display:flex;gap:2px;flex:1;justify-content:center}
-.nav button{font-family:var(--fh);font-weight:600;font-size:11px;letter-spacing:.11em;text-transform:uppercase;color:var(--fog);padding:10px 13px;border-bottom:2px solid transparent;border-radius:0}
+.nav{display:flex;gap:6px;flex:1;justify-content:center;align-items:stretch}
+.nav button{font-family:var(--fh);font-weight:600;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--fog);
+  padding:10px 15px;border-bottom:2px solid transparent;border-radius:0;white-space:nowrap;display:inline-flex;align-items:center;gap:6px}
 .nav button:hover{color:#fff}
-.navlink{text-decoration:none;display:inline-flex}
 .nav button.on{color:#fff;border-bottom-color:var(--rust)}
+.navlink{text-decoration:none;display:inline-flex}
+.navitem{position:relative;display:flex}
+.navitem .caret{width:8px;height:8px;transition:transform .15s}
+.navitem.open .caret{transform:rotate(180deg)}
+.navitem.open > button{color:#fff}
+.navmenu{position:absolute;top:100%;left:50%;transform:translateX(-50%);min-width:268px;background:var(--graphite);
+  border:1px solid rgba(255,255,255,.16);box-shadow:0 18px 40px rgba(0,0,0,.45);padding:6px;display:none;z-index:70}
+.navitem.open .navmenu{display:block}
+.navmenu a{display:block;padding:12px 14px;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.07)}
+.navmenu a:last-child{border-bottom:0}
+.navmenu a:hover{background:var(--rust)}
+.navmenu a b{display:block;font-family:var(--fh);font-weight:800;font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--paper)}
+.navmenu a span{display:block;font-size:11.5px;color:var(--brushed);margin-top:3px;line-height:1.4}
+.navmenu a:hover span{color:rgba(255,255,255,.85)}
 .callbtn{display:none;align-items:center;gap:7px;background:var(--rust);color:#fff;font-family:var(--fh);font-weight:800;font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;padding:12px 15px;min-height:44px;text-decoration:none;flex:0 0 auto}
 .callbtn svg{width:14px;height:14px}
 .callbtn:hover{background:var(--rust-deep)}
@@ -73,6 +93,7 @@ footer.site{margin-top:auto}
   padding:16px 2px;border-bottom:1px solid rgba(255,255,255,.09);min-height:52px}
 .mobmenu .mlink.on{color:var(--rust)}
 .mobmenu a.mlink{text-decoration:none}
+.mobmenu .mgroup{font-family:var(--fh);font-weight:800;font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--rust);padding:20px 2px 6px;border-top:1px solid rgba(255,255,255,.09);margin-top:6px}
 .mobmenu .mlink span.c{font-family:var(--fb);font-weight:500;font-size:12px;color:var(--brushed)}
 .mobmenu .mcall{display:flex;align-items:center;justify-content:center;gap:9px;background:var(--rust);color:#fff;text-decoration:none;
   font-family:var(--fh);font-weight:800;font-size:15px;letter-spacing:.06em;text-transform:uppercase;padding:17px;margin:16px 0 12px}
@@ -459,12 +480,17 @@ footer.site a:hover{color:#fff}
  .stack .btn{width:100%}
 }
 @media(max-width:640px){
- :root{--hh:92px}
- .util .wrap{height:32px;gap:8px}
+ :root{--hh:104px}
+ /* strip is taller on phones purely so the two things in it — call and
+    language — clear the 44px tap-target floor */
+ .util .wrap{height:44px;gap:8px}
  .u-item{display:none}
  .u-sep{display:none}
+ .u-right{display:none}
+ .u-phone{min-height:44px;padding-right:4px}
+ .langsw{margin-left:auto;font-size:10px;letter-spacing:.1em;padding:11px 12px;min-height:42px}
  .mainbar .wrap{height:58px}
- .logo{font-size:16px}
+ .logo{font-size:16px;display:flex;align-items:center;min-height:44px}
  .demobar{font-size:9px;letter-spacing:.07em;padding:6px 12px;line-height:1.5}
  .modeswitch{display:none}
  .callbtn{padding:12px 14px;min-height:44px}

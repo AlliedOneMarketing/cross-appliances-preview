@@ -63,13 +63,26 @@
     <a class="u-phone" href="tel:+18173749412"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 3h4l2 5-2.5 1.5a12 12 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2z"/></svg>817-374-9412</a>
     <span class="u-sep">·</span><span class="u-item">Mon–Fri 9–6 &nbsp;·&nbsp; Sat 9–4 &nbsp;·&nbsp; Closed Sun</span>
     <span class="u-right">Family Owned · Delivery Available</span>
+    <button class="langsw" id="langsw" onclick="toggleLang()" data-nt>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9S14.5 18.3 12 21c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z"/></svg>
+      <b id="langlbl">En Español</b>
+    </button>
   </div></div>
   <div class="mainbar"><div class="wrap">
     <a class="logo" href="/" style="text-decoration:none">Cross<em>·</em>Appliances</a>
     <nav class="nav">
-      <a href="/" style="text-decoration:none"><button>Shop Inventory</button></a>
-      <a href="/service-area/" style="text-decoration:none"><button>Service Area</button></a>
-      <a href="/reviews/" style="text-decoration:none"><button>Reviews</button></a>
+      <a href="/#shop" style="text-decoration:none"><button>Shop Inventory</button></a>
+      <a href="/#delivery" style="text-decoration:none"><button>Delivery</button></a>
+      <a href="/#service" style="text-decoration:none"><button>Repair</button></a>
+      <a href="/#financing" style="text-decoration:none"><button>Financing</button></a>
+      <div class="navitem" id="aboutItem">
+        <button onclick="toggleAbout(event)">About Us <svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 9l7 7 7-7"/></svg></button>
+        <div class="navmenu">
+          <a href="/#locations"><b>Our Locations</b><span>Both Weatherford stores, hours and directions</span></a>
+          <a href="/service-area/"><b>Service Area</b><span>16 towns across Parker County</span></a>
+          <a href="/reviews/"><b>Reviews</b><span>What Google, Facebook and Yelp say</span></a>
+        </div>
+      </div>
     </nav>
     <a class="callbtn" href="tel:+18173749412" style="display:inline-flex"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 3h4l2 5-2.5 1.5a12 12 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2z"/></svg><b>Call</b></a>
   </div></div>
@@ -115,6 +128,7 @@
     <a href="/appliances-weatherford-tx/">Weatherford<span>in town</span></a><a href="/appliances-hudson-oaks-tx/">Hudson Oaks<span>4 mi</span></a><a href="/appliances-willow-park-tx/">Willow Park<span>7 mi</span></a><a href="/appliances-brock-tx/">Brock<span>8 mi</span></a><a href="/appliances-annetta-tx/">Annetta<span>9 mi</span></a><a href="/appliances-aledo-tx/">Aledo<span>10 mi</span></a><a href="/appliances-peaster-tx/">Peaster<span>10 mi</span></a><a href="/appliances-cool-tx/">Cool<span>12 mi</span></a><a href="/appliances-millsap-tx/">Millsap<span>13 mi</span></a><a href="/appliances-poolville-tx/">Poolville<span>15 mi</span></a><a href="/appliances-springtown-tx/">Springtown<span>18 mi</span></a><a href="/appliances-azle-tx/">Azle<span>25 mi</span></a><a href="/appliances-mineral-wells-tx/">Mineral Wells<span>26 mi</span></a><a href="/appliances-west-fort-worth-tx/">West Fort Worth<span>20 mi</span></a><a href="/appliances-parker-county-tx/">Parker County<span>in town</span></a>
   </div>
 </div></div>
+<script>window.ES_PAGE={"Palo Pinto County is the far end of our western route. We are out that way regularly — call and we will tell you the next truck heading toward you.": "El condado de Palo Pinto es el extremo de nuestra ruta oeste. Vamos para allá seguido — llame y le decimos cuándo sale el siguiente camión hacia usted.", "Serving Palo Pinto County, Texas": "Servimos Palo Pinto County, Texas", "Used Appliances": "Electrodomésticos Usados", "in Palo Pinto County, TX": "en Palo Pinto County, TX", "Delivery to Palo Pinto County": "Entrega a Palo Pinto County", "Appliance repair in Palo Pinto County": "Reparación de electrodomésticos en Palo Pinto County", "Everything on our floor is a specific used machine with its own serial number, its own photos and its own condition grade — not a catalog listing. We stock washers, dryers, refrigerators, ranges, dishwashers, freezers and over-the-range microwaves, and what is available changes weekly.": "Todo lo que está en nuestro piso es una máquina usada específica con su propio número de serie, sus propias fotos y su propia clasificación de condición — no es una lista de catálogo. Tenemos lavadoras, secadoras, refrigeradores, estufas, lavavajillas, congeladores y microondas sobre estufa, y lo disponible cambia cada semana.", "Every unit is graded A, B or C before it goes out, and any dent or scratch is written on the listing. Most carry 90 days on parts and labor.": "Cada unidad se clasifica A, B o C antes de salir, y cualquier golpe o rayón queda anotado en la publicación. La mayoría lleva 90 días en piezas y mano de obra.", "Delivery, install and haul-away of your old unit is a $79 flat rate inside Parker County. We run to Palo Pinto County by arrangement, and you pick a two-hour arrival window instead of waiting all day. If you would rather collect it yourself, both Weatherford stores load into a truck or trailer at no charge.": "Entrega, instalación y retiro de su unidad vieja por $79 fijos dentro del condado de Parker. Vamos a Palo Pinto County con cita previa, y usted escoge una ventana de llegada de dos horas en vez de esperar todo el día. Si prefiere recogerlo usted mismo, en las dos tiendas de Weatherford se lo cargamos a su troca o remolque sin costo.", "We repair what we sell and what we did not. Diagnostic is $89 and is waived if we carry out the repair. Call the repairs line on 817-629-8047 to book a technician, or book online and choose your own window.": "Reparamos lo que vendemos y lo que no. El diagnóstico es $89 y no se cobra si nosotros hacemos la reparación. Llame a la línea de reparaciones al 817-629-8047 para agendar un técnico, o agende en línea y escoja su propio horario.", "No credit needed. Acima and Snap Finance are both approved in store in about ten minutes — bring a photo ID, a checking account and proof of income. Deposits, delivery fees and service calls can also be paid by card, with no surcharge.": "Sin crédito. Acima y Snap Finance se aprueban en la tienda en unos diez minutos — traiga identificación con foto, cuenta de cheques y comprobante de ingresos. Depósitos, cargos de entrega y visitas de servicio también se pueden pagar con tarjeta, sin recargo.", "See what is on the floor right now": "Vea lo que hay en el piso ahora mismo", "Every machine we have in Palo Pinto County's two nearest stores, with photos, condition grades and prices.": "Cada máquina que tenemos en las dos tiendas más cercanas a Palo Pinto County, con fotos, clasificación de condición y precios.", "Call 817-374-9412": "Llame al 817-374-9412", "con cita previa": "con cita previa"};</script>
 
 <footer class="site"><div class="wrap">
   <div class="fgrid">
@@ -158,6 +172,15 @@
                    : 'https://www.google.com/maps/dir/?api=1&destination=' + q;
     a.target = '_blank'; a.rel = 'noopener';
   }
+  window.toggleAbout = function(e){
+    e.stopPropagation();
+    var el = document.getElementById('aboutItem');
+    if (el) el.classList.toggle('open');
+  };
+  function closeAbout(){ var el = document.getElementById('aboutItem'); if (el) el.classList.remove('open'); }
+  document.addEventListener('click', closeAbout);
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeAbout(); });
 })();
 </script>
+<script src="/i18n.js" defer></script>
 </body></html>

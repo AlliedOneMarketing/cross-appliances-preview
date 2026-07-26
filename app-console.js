@@ -372,9 +372,11 @@ function modal(title, body, size){
       <div class="mbody">${body}</div>
     </div></div>`;
   document.body.style.overflow='hidden';
+  applyLang();
 }
 function closeModal(){ $('modalHost').innerHTML=''; document.body.style.overflow=''; }
 document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeModal(); });
 
 seedOperations();
+applyHash();
 render();
