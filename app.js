@@ -55,7 +55,7 @@ const state = {
     mk('Maytag','Top-Load Washer, Deep Fill','Washer','B',245,429,440,38,'Mineral Wells Hwy','','90-day parts & labor'),
     mk('Whirlpool','24" Front-Control Dishwasher','Dishwasher','A',175,349,365,15,'Mineral Wells Hwy','','90-day parts & labor'),
   ],
-  deliveries:[], service:[], payments:[], leads:[]
+  deliveries:[], service:[], payments:[], leads:[], wants:[]
 };
 
 
@@ -262,6 +262,18 @@ function seedOperations(){
     state.leads.push({ref:confNum('FIN'),name,partner,band,loc,when:ago(d),status:'Link sent'});
   });
 
+  [[9,'Gas Dryer','Under $400','Sherry Vasquez','(817) 555-0164'],
+   [7,'Refrigerator','$400 – $700','Dwayne Kirkpatrick','(817) 555-0119'],
+   [6,'Gas Dryer','$400 – $700','Marla Odom','(940) 555-0177'],
+   [5,'Stackable Washer/Dryer','$700 – $1,000','Curtis Lang','(817) 555-0132'],
+   [4,'Gas Dryer','Under $400','Nathan Beeler','(817) 555-0148'],
+   [3,'Chest Freezer','Under $400','Yolanda Prieto','(817) 555-0155'],
+   [2,'Refrigerator','$400 – $700','Trey Hollifield','(682) 555-0103'],
+   [1,'Gas Range','$400 – $700','Bonnie Shackelford','(817) 555-0192']
+  ].forEach(([d,cat,band,name,phone])=>{
+    state.wants.push({ref:confNum('WANT'),cat,band,name,phone,when:ago(d),status:'Waiting'});
+  });
+
   // reflect the week's sales in inventory status
   const sell = m => { const u=state.units.find(x=>x.model===m); if(u) u.status='sold'; };
   const hold = m => { const u=state.units.find(x=>x.model===m); if(u) u.status='reserved'; };
@@ -441,6 +453,7 @@ function pageShop(){
     </div>
   </div></div>
 
+  <div class="shopwrap">
   <div class="filters"><div class="wrap">
     <div class="fgroup"><label>Category</label>
       <select onchange="setF('cat',this.value)">
@@ -477,6 +490,15 @@ function pageShop(){
         `<div class="empty"><b>Nothing matches those filters.</b><br>Try widening the price range or switching stores.</div>`}
     </div>
   </div></div>
+  </div>
+
+  <div class="trust"><div class="wrap">
+    <div class="t"><span>Every unit</span><b>90 days</b><p>Parts and labor on most machines. We tell you the exact coverage before you pay a dollar.</p></div>
+    <div class="t"><span>Parker County</span><b>$79 delivered</b><p>Delivered, hooked up, and your old unit hauled away. Two-hour window, not all day.</p></div>
+    <div class="t"><span>No credit needed</span><b>10 minutes</b><p>Acima and Snap, approved right at the counter. Bring an ID, a checking account and proof of income.</p></div>
+  </div></div>
+
+  ${wantSection()}
   ${siteFooter()}`;
 }
 
@@ -939,6 +961,54 @@ function locCard(l){
 }
 function viewStore(l){ state.filters.loc=l; state.filters.cat='all'; go('shop'); }
 
+/* ---------- WANT LIST — capture the customer we didn't have anything for ---------- */
+function wantSection(){
+  const waiting = state.wants.filter(w=>w.status==='Waiting').length;
+  return `<div class="want"><div class="wrap">
+    <div>
+      <span class="chip c-md">New machines every week</span>
+      <h2>Didn't find it?<br>Tell us what<br>you're hunting for.</h2>
+      <p class="l">Most of what we take in sells off the floor before it ever reaches this page. Tell us what you need and we'll text you the day one lands — before anybody else sees it.</p>
+      <div class="stat">
+        <div><b>${waiting}</b><span>People On The List</span></div>
+        <div><b>Free</b><span>Costs You Nothing</span></div>
+        <div><b>No spam</b><span>One Text, That's It</span></div>
+      </div>
+      <div class="altcta">
+        Appliance already broken? <button onclick="go('service')">Book a repair instead &rsaquo;</button>
+      </div>
+    </div>
+    <div class="wantform">
+      <h3>Put me on the list</h3>
+      <div class="frow">
+        <div class="f full"><label>What are you looking for?</label>
+          <select id="wtCat">${CATS.map(c=>`<option>${c}</option>`).join('')}<option>Stackable Washer/Dryer</option><option>Something else</option></select></div>
+        <div class="f full"><label>About what budget?</label>
+          <select id="wtBand"><option>Under $400</option><option selected>$400 – $700</option><option>$700 – $1,000</option><option>$1,000+</option></select></div>
+        <div class="f"><label>First name</label><input type="text" id="wtName" placeholder="Jane"></div>
+        <div class="f"><label>Mobile</label><input type="tel" id="wtPhone" placeholder="(817) 555-0142"></div>
+      </div>
+      <button class="btn b-rust" style="width:100%" onclick="submitWant()">Text Me When One Comes In</button>
+      <p class="hint" style="margin-top:10px;text-align:center">We only text you about the machine you asked for.</p>
+    </div>
+  </div></div>`;
+}
+function submitWant(){
+  const name=($('wtName').value||'').trim(), phone=($('wtPhone').value||'').trim();
+  if(!name||!phone){ toast('First name and mobile required'); return; }
+  const cat=$('wtCat').value, band=$('wtBand').value;
+  state.wants.push({ref:confNum('WANT'),cat,band,name,phone,when:new Date(),status:'Waiting'});
+  const ahead=state.wants.filter(w=>w.cat===cat&&w.status==='Waiting').length-1;
+  modal('You\'re On The List', `<div class="ok">
+    <div class="tick">✓</div><h2>We'll text you.</h2>
+    <p>${esc(name)}, the next ${cat.toLowerCase()} we take in around ${band} — you hear about it first.</p>
+    ${ahead>0?`<p style="color:var(--iron)">${ahead} other ${ahead===1?'person is':'people are'} waiting on the same thing, so we're actively looking.</p>`:''}
+    <p style="margin-bottom:18px">Can't wait? Call ${MAIN_PHONE} and we'll tell you what's coming.</p>
+    <button class="btn b-rust" onclick="closeModal()">Done</button></div>`,'sm');
+  clearForm(['wtName','wtPhone']);
+  render();
+}
+
 /* ---------- FOOTER ---------- */
 function siteFooter(){
   const avail=availableUnits();
@@ -1007,12 +1077,13 @@ function siteFooter(){
 /* ============================================================
    STAFF CONSOLE
 ============================================================ */
-const CTABS=[['intake','Add A Unit'],['inventory','All Inventory'],['pricing','Pricing Engine'],['schedule','Schedule Board'],['payments','Payments']];
+const CTABS=[['intake','Add A Unit'],['inventory','All Inventory'],['wants','Want List'],['pricing','Pricing Engine'],['schedule','Schedule Board'],['payments','Payments']];
 
 function renderConsole(){
   let inner='';
   if(state.ctab==='intake') inner=cIntake();
   else if(state.ctab==='inventory') inner=cInventory();
+  else if(state.ctab==='wants') inner=cWants();
   else if(state.ctab==='pricing') inner=cPricing();
   else if(state.ctab==='schedule') inner=cSchedule();
   else inner=cPayments();
@@ -1032,6 +1103,7 @@ function renderConsole(){
       <div class="kpi"><b>${money(retail)}</b><span>Retail Value</span></div>
       <div class="kpi good"><b>${money(retail-cost)}</b><span>Gross Margin At Current Price</span></div>
       <div class="kpi hot"><b>${money(volume)}</b><span>Card Volume · 7 Days</span></div>
+      <div class="kpi warn"><b>${state.wants.filter(w=>w.status==='Waiting').length}</b><span>Customers Waiting</span></div>
     </div>
     <div class="ctabs">${CTABS.map(([k,l])=>`<button class="${state.ctab===k?'on':''}" onclick="ctab('${k}')">${l}</button>`).join('')}</div>
     ${inner}
@@ -1155,6 +1227,60 @@ function markSold(id){
   const p=priceOf(u); u.status='sold';
   state.payments.push({ref:confNum('SALE'),type:'Counter sale',desc:`${u.brand} ${u.model}`,customer:'Walk-in',amount:p.price,status:'Approved',when:new Date(),balance:0});
   toast('Marked sold — pulled from the website');
+  render();
+}
+
+/* ---------- WANT LIST ---------- */
+function cWants(){
+  const waiting = state.wants.filter(w=>w.status==='Waiting');
+  const agg = {};
+  waiting.forEach(w=>{
+    const a = agg[w.cat] = agg[w.cat] || {n:0, bands:{}, oldest:w.when};
+    a.n++; a.bands[w.band] = (a.bands[w.band]||0)+1;
+    if(w.when < a.oldest) a.oldest = w.when;
+  });
+  const rows = Object.entries(agg).sort((a,b)=>b[1].n-a[1].n);
+  const days = d => Math.max(0, Math.round((Date.now()-d.getTime())/86400000));
+  const onFloor = c => availableUnits().filter(u=>u.cat===c).length;
+
+  return `<div class="cpanel">
+    <h3>What people asked for that you didn't have</h3>
+    <p class="sub">Every visitor who scrolled your whole floor and still didn't find it. This is not a mailing list — it is a buying list. Sorted by how many people are waiting.</p>
+    ${rows.length?`<div style="overflow-x:auto"><table class="dt">
+      <tr><th>They want</th><th class="num">People Waiting</th><th>Most-Asked Budget</th><th class="num">Longest Wait</th><th class="num">On Your Floor Now</th></tr>
+      ${rows.map(([cat,a])=>{
+        const band = Object.entries(a.bands).sort((x,y)=>y[1]-x[1])[0][0];
+        const have = onFloor(cat);
+        return `<tr>
+          <td><b style="font-family:var(--fh);font-size:13.5px">${cat}</b></td>
+          <td class="num" style="color:${a.n>=3?'#E5713F':'inherit'};font-size:15px">${a.n}</td>
+          <td style="font-size:12.5px">${band}</td>
+          <td class="num" style="color:var(--brushed)">${days(a.oldest)} days</td>
+          <td class="num" style="color:${have?'#57C08B':'#E5713F'}">${have}${have?'':' — none'}</td>
+        </tr>`;}).join('')}
+    </table></div>
+    <div class="callout"><b>Read the top row.</b> That is the machine to go buy at auction this week — you already have the customers for it, and you know what they will pay. Most used dealers buy on gut and hope. This turns the website into a purchasing input.</div>
+
+    <h3 style="margin-top:26px">Individual requests</h3>
+    <p class="sub">Call or text these when the right unit lands. Marking one sourced takes them off the waiting count.</p>
+    <div style="overflow-x:auto"><table class="dt">
+      <tr><th>Date</th><th>Customer</th><th>Mobile</th><th>Wants</th><th>Budget</th><th>Status</th><th></th></tr>
+      ${state.wants.slice().sort((a,b)=>b.when-a.when).map((w,i)=>`<tr>
+        <td style="white-space:nowrap;color:var(--brushed);font-size:12px">${dshort(w.when)}</td>
+        <td>${w.name}</td>
+        <td style="font-size:12.5px;color:var(--fog)">${w.phone}</td>
+        <td style="font-size:12.5px">${w.cat}</td>
+        <td style="font-size:12.5px;color:var(--brushed)">${w.band}</td>
+        <td>${w.status==='Waiting'?'<span class="chip c-c">Waiting</span>':'<span class="chip c-a">Sourced</span>'}</td>
+        <td>${w.status==='Waiting'?`<button class="btn b-ghost b-sm" style="border-color:rgba(255,255,255,.3);color:var(--paper)" onclick="markSourced('${w.ref}')">Mark Sourced</button>`:''}</td>
+      </tr>`).join('')}
+    </table></div>`
+    :`<p style="font-size:13px;color:var(--brushed)">Nobody on the list yet. The form at the bottom of the home page feeds this.</p>`}
+  </div>`;
+}
+function markSourced(ref){
+  const w=state.wants.find(x=>x.ref===ref); if(!w) return;
+  w.status='Sourced'; toast('Marked sourced — '+w.name+' gets a text');
   render();
 }
 
