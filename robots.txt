@@ -1,0 +1,5 @@
+# Client prototype — not the live Cross Appliances website.
+# Deliberately excluded from all search engines so it cannot compete with or
+# confuse the real business listing.
+User-agent: *
+Disallow: /
