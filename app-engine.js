@@ -54,7 +54,7 @@ function priceOf(u){
 ============================================================ */
 const $ = id => document.getElementById(id);
 const money = n => '$' + Math.round(n).toLocaleString('en-US');
-function toast(msg){ const t=$('toast'); t.textContent=msg; t.classList.add('show'); clearTimeout(t._x); t._x=setTimeout(()=>t.classList.remove('show'),2400); }
+function toast(msg){ const t=$('toast'); t.textContent=(__lang==='es' && esLookup(msg)) || msg; t.classList.add('show'); clearTimeout(t._x); t._x=setTimeout(()=>t.classList.remove('show'),2400); }
 function confNum(p){ return p + '-' + Math.floor(100000 + Math.random()*899999); }
 function availableUnits(){ return state.units.filter(u=>u.status!=='sold'); }
 const IS_APPLE = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
