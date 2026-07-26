@@ -7,6 +7,8 @@ function render(){
   snapForms();
   $('nav').innerHTML = state.mode==='customer'
     ? CUST_VIEWS.map(([k,l])=>`<button class="${state.view===k?'on':''}" onclick="go('${k}')">${l}</button>`).join('')
+      + `<a href="/service-area/" class="navlink"><button>Service Area</button></a>`
+      + `<a href="/reviews/" class="navlink"><button>Reviews</button></a>`
     : '';
   $('modeswitch').innerHTML = state.mode==='customer'
     ? `<button class="on">Customer</button>
@@ -31,7 +33,9 @@ function renderMobMenu(){
     ${state.mode==='customer' ? CUST_VIEWS.map(([k,l])=>`
       <button class="mlink ${state.view===k?'on':''}" onclick="go('${k}')">
         <span>${l}</span>${k==='shop'?`<span class="c">${counts.shop} in stock</span>`:'<span class="c">&rsaquo;</span>'}
-      </button>`).join('') : `
+      </button>`).join('') + `
+      <a class="mlink" href="/service-area/"><span>Service Area</span><span class="c">16 towns &rsaquo;</span></a>
+      <a class="mlink" href="/reviews/"><span>Reviews</span><span class="c">&rsaquo;</span></a>` : `
       <button class="mlink" onclick="exitStaff()"><span>Back to the website</span><span class="c">&rsaquo;</span></button>
       ${CTABS.map(([k,l])=>`<button class="mlink ${state.ctab===k?'on':''}" onclick="ctab('${k}');closeMenu()"><span>${l}</span><span class="c">&rsaquo;</span></button>`).join('')}`}
     <a class="mcall" href="tel:+18173749412">
@@ -630,7 +634,7 @@ function locCard(l){
       </div>
       <div class="locbody">
         <h3>${l}</h3>
-        <div class="locmeta">${d.street}<br>${d.city}<br><b>${d.phone}</b></div>
+        <div class="locmeta"><a href="${mapsHref(d.street+', '+d.city)}" target="_blank" rel="noopener" style="color:inherit">${d.street}<br>${d.city}</a><br><a href="tel:+1${d.phone.replace(/\D/g,'')}"><b>${d.phone}</b></a></div>
         <p style="font-size:13.5px;color:var(--iron);margin-bottom:16px">${d.note}</p>
         <div class="hoursrow"><b>Mon – Fri</b><span>9:00 AM – 6:00 PM</span></div>
         <div class="hoursrow"><b>Saturday</b><span>9:00 AM – 4:00 PM</span></div>
@@ -639,7 +643,7 @@ function locCard(l){
     </div>
     <div class="mapbox">${mapSvg(d.key)}<span class="mapattr">Locator map · opens in Google Maps</span></div>
     <div class="mapacts">
-      <a href="https://www.google.com/maps/dir/?api=1&destination=${d.dir}" target="_blank" rel="noopener">${ICON.pin}Get Directions</a>
+      <a href="${mapsHref(d.street+', '+d.city)}" target="_blank" rel="noopener">${ICON.pin}Get Directions</a>
       <a href="tel:+1${d.phone.replace(/\D/g,'')}">${ICON.phone}Call Store</a>
       <a href="mailto:${d.email}">${ICON.mail}Email</a>
     </div>
@@ -718,7 +722,9 @@ function siteFooter(){
           <div class="flogo">Cross<em>·</em>Appliances</div>
           <p class="ftag">Family-owned discount appliance store serving Weatherford and Parker County. Like-new washers, dryers, refrigerators and ranges — graded, warrantied, delivered and repaired in house.</p>
           <a class="fphone" href="tel:+18173749412">${MAIN_PHONE}</a>
-          <span class="fsmall">Sales &amp; general · Repairs line ${REPAIR_PHONE}</span>
+          <span class="fsmall">Sales &amp; general</span>
+          <a class="fphone" href="tel:+18176298047" style="margin-top:10px">${REPAIR_PHONE}</a>
+          <span class="fsmall">Repairs line</span>
           <div class="fbadges">
             <span class="fbadge">Family Owned</span>
             <span class="fbadge">Warranty Included</span>
@@ -744,7 +750,7 @@ function siteFooter(){
             <li><button onclick="go('service')">Same-Week Service Calls</button></li>
             <li><button onclick="go('financing')">Lease-to-Own Financing</button></li>
             <li><button onclick="go('locations')">Store Locations &amp; Hours</button></li>
-            <li><a href="/service-area/" style="text-decoration:none">Service Area &mdash; 13 Towns</a></li>
+            <li><a href="/service-area/" style="text-decoration:none">Service Area &mdash; ${AREAS.length} Towns</a></li>
             <li><a href="/reviews/" style="text-decoration:none">Reviews</a></li>
           </ul>
         </div>
@@ -763,7 +769,7 @@ function siteFooter(){
 
       <div class="fserve">
         <b>Appliance sales, delivery and repair serving</b>
-        Weatherford · Aledo · Willow Park · Hudson Oaks · Annetta · Brock · Millsap · Peaster · Poolville · Springtown · Azle · Cool · Mineral Wells · Parker County · Palo Pinto County · West Fort Worth
+        ${AREAS.map(([t,sl])=>`<a href="/appliances-${sl}-tx/">${t}</a>`).join(' &middot; ')}
       </div>
 
       <div class="fbottom">

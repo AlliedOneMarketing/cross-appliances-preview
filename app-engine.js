@@ -57,6 +57,13 @@ const money = n => '$' + Math.round(n).toLocaleString('en-US');
 function toast(msg){ const t=$('toast'); t.textContent=msg; t.classList.add('show'); clearTimeout(t._x); t._x=setTimeout(()=>t.classList.remove('show'),2400); }
 function confNum(p){ return p + '-' + Math.floor(100000 + Math.random()*899999); }
 function availableUnits(){ return state.units.filter(u=>u.status!=='sold'); }
+const IS_APPLE = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+                 navigator.platform === 'MacIntel' || /Mac OS X/.test(navigator.userAgent);
+function mapsHref(addr){
+  const q = encodeURIComponent(addr);
+  return IS_APPLE ? 'https://maps.apple.com/?daddr=' + q
+                  : 'https://www.google.com/maps/dir/?api=1&destination=' + q;
+}
 const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 
 function svgFor(cat){

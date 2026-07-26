@@ -21,6 +21,13 @@ const LOCDATA = {
 const CATS = ['Washer','Dryer','Refrigerator','Range','Dishwasher','Freezer','Microwave'];
 const GRADE_LABEL = {A:'Grade A · Like New', B:'Grade B · Light Wear', C:'Grade C · Cosmetic Damage'};
 const GRADE_CLASS = {A:'c-a', B:'c-b', C:'c-c'};
+const AREAS = [
+  ['Weatherford','weatherford'],['Hudson Oaks','hudson-oaks'],['Willow Park','willow-park'],
+  ['Brock','brock'],['Annetta','annetta'],['Aledo','aledo'],['Peaster','peaster'],['Cool','cool'],
+  ['Millsap','millsap'],['Poolville','poolville'],['Springtown','springtown'],['Azle','azle'],
+  ['Mineral Wells','mineral-wells'],['West Fort Worth','west-fort-worth'],
+  ['Parker County','parker-county'],['Palo Pinto County','palo-pinto-county'],
+];
 const MAIN_PHONE = '817-374-9412';
 const REPAIR_PHONE = '817-629-8047';
 
