@@ -4,6 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="theme-color" content="#16191C">
+<meta name="format-detection" content="telephone=yes">
 <title>Cross Appliances — Discount Appliances, Service &amp; Repairs | Weatherford, TX</title>
 <meta name="description" content="Family-owned discount appliance store in Weatherford, Texas. Like-new washers, dryers, refrigerators and ranges with warranty, delivery and in-house repair. Two locations. Acima and Snap Finance available.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,8 +21,13 @@
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+img{max-width:100%}
+button,a,select,input,textarea,.unit,.slot,.day,.stockrow{-webkit-tap-highlight-color:rgba(194,74,30,.16)}
+.intakegrid{display:grid;grid-template-columns:280px 1fr;gap:26px}
+.pricegrid{display:grid;grid-template-columns:1fr 1fr;gap:30px}
 body{background:var(--paper);color:var(--graphite);font-family:var(--fb);-webkit-font-smoothing:antialiased;line-height:1.5;
-     display:flex;flex-direction:column;min-height:100%}
+     display:flex;flex-direction:column;min-height:100%;overflow-x:hidden}
 button,input,select,textarea{font-family:inherit;font-size:inherit;color:inherit}
 button{cursor:pointer;border:0;background:none}
 a{color:inherit}
@@ -29,23 +36,63 @@ a{color:inherit}
 
 /* ---------- STICKY-FOOTER SHELL ---------- */
 #app{flex:1 0 auto;display:flex;flex-direction:column;min-height:0}
-#app > *{flex:0 0 auto}
+#app > *{flex:0 0 auto;min-width:0;max-width:100%}
 footer.site{margin-top:auto}
 
 /* ---------- CHROME ---------- */
 .demobar{background:var(--rust);color:#fff;font-family:var(--fh);font-weight:700;font-size:11px;letter-spacing:.13em;text-transform:uppercase;text-align:center;padding:7px 16px;flex:0 0 auto}
-.topbar{background:var(--graphite);color:var(--paper);position:sticky;top:0;z-index:60;flex:0 0 auto}
-.topbar .wrap{display:flex;align-items:center;justify-content:space-between;height:62px;gap:20px}
-.logo{font-family:var(--fh);font-weight:900;font-size:19px;letter-spacing:-.01em;text-transform:uppercase;white-space:nowrap;cursor:pointer}
+:root{--hh:98px}
+.topbar{position:sticky;top:0;z-index:60;flex:0 0 auto}
+
+/* utility strip */
+.util{background:#0E1113;color:var(--fog);font-size:12px;padding-top:env(safe-area-inset-top)}
+.util .wrap{display:flex;align-items:center;gap:10px;height:34px}
+.util a,.util span{white-space:nowrap}
+.u-phone{display:inline-flex;align-items:center;gap:7px;color:#fff;text-decoration:none;font-family:var(--fh);font-weight:800;font-size:12.5px;letter-spacing:.03em}
+.u-phone svg{width:13px;height:13px;color:var(--rust)}
+.u-phone:hover{color:var(--rust)}
+.u-sep{color:#454c52}
+.u-item{color:var(--brushed);font-size:11.5px}
+.u-right{margin-left:auto;font-family:var(--fh);font-weight:700;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--brushed)}
+
+/* main bar */
+.mainbar{background:var(--graphite);color:var(--paper);border-bottom:1px solid rgba(255,255,255,.09)}
+.mainbar .wrap{display:flex;align-items:center;gap:14px;height:64px}
+.logo{font-family:var(--fh);font-weight:900;font-size:19px;letter-spacing:-.01em;text-transform:uppercase;white-space:nowrap;cursor:pointer;flex:0 0 auto}
 .logo em{font-style:normal;color:var(--rust)}
-.nav{display:flex;gap:4px;flex:1;justify-content:center}
-.nav button{font-family:var(--fh);font-weight:600;font-size:11px;letter-spacing:.11em;text-transform:uppercase;color:var(--fog);padding:9px 14px;border-bottom:2px solid transparent}
+.nav{display:flex;gap:2px;flex:1;justify-content:center}
+.nav button{font-family:var(--fh);font-weight:600;font-size:11px;letter-spacing:.11em;text-transform:uppercase;color:var(--fog);padding:10px 13px;border-bottom:2px solid transparent;border-radius:0}
 .nav button:hover{color:#fff}
 .nav button.on{color:#fff;border-bottom-color:var(--rust)}
-.modeswitch{display:flex;border:1px solid rgba(244,241,236,.25);align-items:stretch}
-.modeswitch button{font-family:var(--fh);font-weight:700;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;padding:8px 13px;color:var(--fog);display:flex;align-items:center;gap:6px}
+.callbtn{display:none;align-items:center;gap:7px;background:var(--rust);color:#fff;font-family:var(--fh);font-weight:800;font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;padding:12px 15px;min-height:44px;text-decoration:none;flex:0 0 auto}
+.callbtn svg{width:14px;height:14px}
+.callbtn:hover{background:var(--rust-deep)}
+.modeswitch{display:flex;border:1px solid rgba(244,241,236,.25);align-items:stretch;flex:0 0 auto}
+.modeswitch button{font-family:var(--fh);font-weight:700;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;padding:8px 12px;color:var(--fog);display:flex;align-items:center;gap:6px;min-height:40px}
 .modeswitch button.on{background:var(--paper);color:var(--graphite)}
 .lock{width:9px;height:9px;flex:0 0 auto}
+
+/* burger + mobile drawer */
+.burger{display:none;width:44px;height:44px;flex:0 0 auto;flex-direction:column;justify-content:center;gap:5px;padding:0 11px;margin-left:-11px}
+.burger span{display:block;height:2px;background:var(--paper);transition:.18s;transform-origin:center}
+.burger.on span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.burger.on span:nth-child(2){opacity:0}
+.burger.on span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mobmenu{display:none;background:var(--graphite);border-top:1px solid rgba(255,255,255,.1);max-height:calc(100vh - var(--hh));overflow-y:auto;-webkit-overflow-scrolling:touch}
+.mobmenu.open{display:block}
+.mobmenu .wrap{padding-top:6px;padding-bottom:calc(18px + env(safe-area-inset-bottom))}
+.mobmenu .mlink{display:flex;align-items:center;justify-content:space-between;width:100%;text-align:left;
+  font-family:var(--fh);font-weight:700;font-size:15px;letter-spacing:.03em;color:var(--paper);
+  padding:16px 2px;border-bottom:1px solid rgba(255,255,255,.09);min-height:52px}
+.mobmenu .mlink.on{color:var(--rust)}
+.mobmenu .mlink span.c{font-family:var(--fb);font-weight:500;font-size:12px;color:var(--brushed)}
+.mobmenu .mcall{display:flex;align-items:center;justify-content:center;gap:9px;background:var(--rust);color:#fff;text-decoration:none;
+  font-family:var(--fh);font-weight:800;font-size:15px;letter-spacing:.06em;text-transform:uppercase;padding:17px;margin:16px 0 12px}
+.mobmenu .mcall svg{width:17px;height:17px}
+.mobmenu .minfo{font-size:12.5px;color:var(--brushed);line-height:1.7;padding-bottom:6px}
+.mobmenu .minfo b{color:var(--paper);font-family:var(--fh);font-weight:700;font-size:11px;letter-spacing:.13em;text-transform:uppercase;display:block;margin-bottom:4px}
+.mobmenu .mstaff{width:100%;border:1.5px solid rgba(255,255,255,.28);color:var(--fog);font-family:var(--fh);font-weight:700;
+  font-size:11.5px;letter-spacing:.13em;text-transform:uppercase;padding:14px;margin-top:10px;display:flex;align-items:center;justify-content:center;gap:8px;min-height:48px}
 
 /* ---------- TYPO / BUTTONS ---------- */
 h1,h2,h3,h4{font-family:var(--fh);letter-spacing:-.01em}
@@ -81,9 +128,10 @@ h1,h2,h3,h4{font-family:var(--fh);letter-spacing:-.01em}
 .hstat span{font-family:var(--fh);font-weight:600;font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--brushed)}
 
 /* ---------- FILTERS ---------- */
-.filters{background:var(--bone);border-bottom:1px solid var(--line);position:sticky;top:62px;z-index:50}
+.filters{background:var(--bone);border-bottom:1px solid var(--line);position:sticky;top:var(--hh);z-index:50}
 .filters .wrap{display:flex;gap:12px;align-items:center;padding-top:14px;padding-bottom:14px;flex-wrap:wrap}
-.fgroup{display:flex;flex-direction:column;gap:4px}
+.fgroup{display:flex;flex-direction:column;gap:4px;min-width:0}
+.fgroup select,.fgroup input{max-width:100%;min-width:0}
 .fgroup label{font-family:var(--fh);font-weight:700;font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--brushed)}
 select,input[type=text],input[type=tel],input[type=email],input[type=number],input[type=password],input[type=date],textarea{
   border:1px solid var(--line);background:var(--bone);padding:9px 11px;font-size:14px;outline:none;border-radius:0}
@@ -152,7 +200,7 @@ select:focus,input:focus,textarea:focus{border-color:var(--rust)}
 .slot:disabled{opacity:.4;cursor:not-allowed;background:#EDE9E2}
 .slot b{display:block;font-family:var(--fh);font-weight:800;font-size:12.5px}
 .slot span{font-size:10.5px;color:inherit;opacity:.72}
-.days{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;margin-top:8px}
+.days{display:flex;gap:8px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:thin;padding-bottom:6px;margin-top:8px}
 .day{border:1px solid var(--line);background:var(--bone);padding:10px 13px;text-align:center;min-width:74px;flex:0 0 auto}
 .day.on{background:var(--rust);color:#fff;border-color:var(--rust)}
 .day:disabled{opacity:.35;cursor:not-allowed}
@@ -238,7 +286,7 @@ select:focus,input:focus,textarea:focus{border-color:var(--rust)}
 /* ---------- STAFF CONSOLE ---------- */
 .console{background:#101315;min-height:100%;color:var(--paper);flex:1 0 auto;display:flex;flex-direction:column}
 .console .wrap{padding-top:26px;padding-bottom:60px}
-.ctabs{display:flex;gap:2px;border-bottom:1px solid rgba(255,255,255,.13);margin-bottom:26px;overflow-x:auto}
+.ctabs{display:flex;gap:2px;border-bottom:1px solid rgba(255,255,255,.13);margin-bottom:26px;overflow-x:auto;-webkit-overflow-scrolling:touch}
 .ctabs button{font-family:var(--fh);font-weight:700;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;padding:13px 17px;color:var(--brushed);border-bottom:2px solid transparent;white-space:nowrap}
 .ctabs button.on{color:#fff;border-bottom-color:var(--rust)}
 .cpanel{background:#181C1F;border:1px solid rgba(255,255,255,.11);padding:24px;margin-bottom:20px}
@@ -329,24 +377,118 @@ footer.site a:hover{color:#fff}
 .fbottom{border-top:1px solid rgba(255,255,255,.1);padding:18px 0 24px;display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;font-size:11.5px}
 .fbottom span{opacity:.72}
 
-@media(max-width:1080px){.grid{grid-template-columns:repeat(3,1fr)}.kpis{grid-template-columns:repeat(3,1fr)}.fgrid{grid-template-columns:1fr 1fr}}
-@media(max-width:820px){
- .grid{grid-template-columns:repeat(2,1fr)}.hero .wrap{grid-template-columns:1fr}
- .det,.frow,.two,.locgrid,.fincards,.est{grid-template-columns:1fr}.kpis{grid-template-columns:repeat(2,1fr)}
- .steps{grid-template-columns:1fr}
- .nav{display:none}.wrap{padding:0 16px}
- .fincards{margin-top:26px}
+/* ===================== RESPONSIVE ===================== */
+@media(max-width:1180px){
+ .grid{grid-template-columns:repeat(3,1fr)}
+ .nav button{padding:10px 9px;font-size:10px;letter-spacing:.08em}
 }
-@media(max-width:560px){
- .hero{padding:52px 0 56px;background-position:center 46%}
- .logo{font-size:15px}
- .modeswitch button{padding:7px 9px;font-size:9.5px;letter-spacing:.05em}
- .topbar .wrap{gap:10px}
- .demobar{font-size:9.5px;letter-spacing:.08em}
- .grid{grid-template-columns:1fr}
- .kpis{grid-template-columns:1fr 1fr}
+@media(max-width:1080px){
+ .kpis{grid-template-columns:repeat(3,1fr)}
+ .fgrid{grid-template-columns:1fr 1fr}
+ .u-item:nth-of-type(2){display:none}
+}
+
+/* --- tablet / phone: nav collapses into the drawer --- */
+@media(max-width:960px){
+ :root{--hh:98px}
+ .nav{display:none}
+ .burger{display:flex}
+ .callbtn{display:inline-flex}
+ .mainbar .wrap{gap:10px;justify-content:space-between}
+ .logo{flex:1;text-align:left}
+ .u-right{display:none}
+}
+@media(max-width:820px){
+ .hero .wrap{grid-template-columns:1fr;gap:26px}
+ .grid,.two,.locgrid,.fincards,.sched,.kpis,.filters .wrap{min-width:0}
+ .grid > *,.kpis > *,.filters .wrap > *,.two > *,.locgrid > *,.fincards > *{min-width:0}
+ .panel,.loccard,.fincard,.cpanel,.est,.section > .wrap{min-width:0}
+ .days{min-width:0;max-width:100%}
+ .slots{min-width:0}
+ /* touch-size the small text links once we're on any touch-class device */
+ .fcol li{padding:0}
+ .fcol li button{padding:13px 0;min-height:46px;width:100%;border-bottom:1px solid rgba(255,255,255,.07)}
+ .fcol ul{margin-top:-4px}
+ .u-phone{padding:8px 0;min-height:40px}
+ .fphone{padding:6px 0;display:inline-block;min-height:44px}
+ .mapacts a{min-height:52px}
+ .stockrow{min-height:56px}
+ .det,.frow,.two,.locgrid,.fincards,.est,.intakegrid,.pricegrid{grid-template-columns:1fr}
+ .kpis{grid-template-columns:repeat(2,1fr)}
+ .steps{grid-template-columns:1fr}
+ .wrap{padding:0 16px}
+ .fincards{margin-top:26px}
+ .grid{grid-template-columns:repeat(2,1fr)}
+ .section{padding:32px 0}
+ /* a tall sticky filter bar eats a phone screen — let it scroll away */
+ .filters{position:static}
+ .filters .wrap{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding-top:12px;padding-bottom:12px}
+ .fgroup:nth-child(4),.fgroup:nth-child(5){grid-column:span 1}
+ .fgroup input[type=range]{width:100% !important}
+ .fcount{grid-column:1/-1;margin-left:0;text-align:right}
+ /* iOS zooms any input under 16px on focus */
+ select,input[type=text],input[type=tel],input[type=email],input[type=number],input[type=password],input[type=date],textarea{font-size:16px;padding:11px 12px}
+ .btn{padding:14px 20px;min-height:48px}
+ .mapacts a{padding:16px 6px;font-size:10px}
+ /* full-screen modals */
+ .scrim{padding:0;align-items:stretch}
+ .modal,.modal.sm{max-width:none;min-height:100%;border:0}
+ .mbody{padding:18px 16px calc(24px + env(safe-area-inset-bottom))}
+ .mhead{padding:14px 16px}
+ .det .ph{max-width:320px;margin:0 auto}
+ .bigprice{font-size:38px}
+ .modal .btn{width:100%}
+ .stack .btn{width:100%}
+}
+@media(max-width:640px){
+ :root{--hh:92px}
+ .util .wrap{height:32px;gap:8px}
+ .u-item{display:none}
+ .u-sep{display:none}
+ .mainbar .wrap{height:58px}
+ .logo{font-size:16px}
+ .demobar{font-size:9px;letter-spacing:.07em;padding:6px 12px;line-height:1.5}
+ .modeswitch{display:none}
+ .callbtn{padding:12px 14px;min-height:44px}
+ .hero{padding:44px 0 48px;background-position:center 46%}
+ .hero h1{font-size:clamp(30px,8.6vw,40px)}
+ .hero p{font-size:14.5px}
+ .hero .cta{gap:9px}
+ .hero .cta .btn{flex:1 1 100%}
+ .hero .fam{font-size:9px;letter-spacing:.14em;line-height:1.9}
+ .hstats{grid-template-columns:repeat(3,1fr)}
+ .hstat{padding:12px 10px;text-align:center}
+ .hstat b{font-size:22px}
+ .hstat span{font-size:8.5px;letter-spacing:.1em}
+ .grid{gap:12px}
+ .unit .name{font-size:14px;min-height:34px}
+ .unit .price{font-size:24px}
+ .unit .body{padding:12px 12px 14px}
+ .unit .foot{font-size:10px;flex-direction:column;gap:2px}
+ .ph1{font-size:26px}
+ .plede{font-size:15px}
+ .panel{padding:20px 16px}
  .slots{grid-template-columns:1fr}
+ .kpi b{font-size:21px}
+ .cpanel{padding:18px 15px}
+ .sched{grid-template-columns:1fr}
  .fgrid{grid-template-columns:1fr;gap:26px}
+ .locbody,.stockhead,.stockrow{padding-left:15px;padding-right:15px}
+ .finhero{padding:38px 0 42px}
+ .est{padding:22px 18px}
+ .est .out b{font-size:32px}
+ footer.site{padding-top:40px}
+ .fbottom{flex-direction:column;gap:8px}
+}
+@media(max-width:400px){
+ .grid{grid-template-columns:1fr}
+ .unit .price{font-size:27px}
+ .calltxt{display:none}
+ .callbtn{padding:12px}
+ .kpis{grid-template-columns:1fr}
+}
+@media(hover:none){
+ .unit:hover{transform:none;border-color:var(--line)}
 }
 </style>
 </head>
@@ -354,13 +496,22 @@ footer.site a:hover{color:#fff}
 
 <div class="demobar">Working Prototype — AlliedOne Marketing &nbsp;·&nbsp; Payments are simulated · No live gateway connected</div>
 
-<div class="topbar">
-  <div class="wrap">
+<header class="topbar" id="topbar">
+  <div class="util"><div class="wrap">
+    <a class="u-phone" href="tel:+18173749412"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 3h4l2 5-2.5 1.5a12 12 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2z"/></svg>817-374-9412</a>
+    <span class="u-sep">·</span><span class="u-item">Mon–Fri 9–6 &nbsp;·&nbsp; Sat 9–4 &nbsp;·&nbsp; Closed Sun</span>
+    <span class="u-sep">·</span><span class="u-item">2 Weatherford Locations</span>
+    <span class="u-right">Family Owned · Delivery Available</span>
+  </div></div>
+  <div class="mainbar"><div class="wrap">
+    <button class="burger" id="burger" onclick="toggleMenu()" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
     <div class="logo" onclick="exitStaff()">Cross<em>·</em>Appliances</div>
     <nav class="nav" id="nav"></nav>
+    <a class="callbtn" href="tel:+18173749412" aria-label="Call Cross Appliances"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 3h4l2 5-2.5 1.5a12 12 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2z"/></svg><b class="calltxt">Call</b></a>
     <div class="modeswitch" id="modeswitch"></div>
-  </div>
-</div>
+  </div></div>
+  <div class="mobmenu" id="mobmenu"></div>
+</header>
 
 <div id="app"></div>
 <div id="modalHost"></div>
@@ -707,22 +858,62 @@ function render(){
     : `<button onclick="exitStaff()">Customer</button>
        <button class="on">Staff Console</button>
        <button onclick="signOut()" title="Sign out">Sign Out</button>`;
+  renderMobMenu();
   $('app').innerHTML = state.mode==='staff' ? renderConsole() : renderCustomer();
   restoreForms();
   if(state.mode==='staff' && state.ctab==='intake') suggestPrice();
   if(state.mode==='customer' && state.view==='financing') updateEstimate();
 }
-function go(v){ state.view=v; window.scrollTo(0,0); render(); }
+function go(v){ state.view=v; closeMenu(); window.scrollTo(0,0); render(); }
+
+/* ---------- mobile navigation drawer ---------- */
+function renderMobMenu(){
+  const el=$('mobmenu'); if(!el) return;
+  const avail=availableUnits();
+  const counts={shop:avail.length};
+  el.innerHTML = `<div class="wrap">
+    ${state.mode==='customer' ? CUST_VIEWS.map(([k,l])=>`
+      <button class="mlink ${state.view===k?'on':''}" onclick="go('${k}')">
+        <span>${l}</span>${k==='shop'?`<span class="c">${counts.shop} in stock</span>`:'<span class="c">&rsaquo;</span>'}
+      </button>`).join('') : `
+      <button class="mlink" onclick="exitStaff()"><span>Back to the website</span><span class="c">&rsaquo;</span></button>
+      ${CTABS.map(([k,l])=>`<button class="mlink ${state.ctab===k?'on':''}" onclick="ctab('${k}');closeMenu()"><span>${l}</span><span class="c">&rsaquo;</span></button>`).join('')}`}
+    <a class="mcall" href="tel:+18173749412">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 3h4l2 5-2.5 1.5a12 12 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2z"/></svg>
+      Call 817-374-9412</a>
+    <div class="minfo"><b>Mineral Wells Hwy</b>1506 Mineral Wells Hwy, Ste A · Weatherford</div>
+    <div class="minfo"><b>FM 920</b>2053 FM 920 · Weatherford</div>
+    <div class="minfo"><b>Hours</b>Mon–Fri 9–6 · Sat 9–4 · Closed Sunday</div>
+    ${state.mode==='customer'
+      ? `<button class="mstaff" onclick="closeMenu();requestStaff()"><span class="lock">${ICON.lock}</span> Staff Console</button>`
+      : `<button class="mstaff" onclick="closeMenu();signOut()">Sign Out</button>`}
+  </div>`;
+}
+function toggleMenu(){
+  const m=$('mobmenu'), b=$('burger');
+  const open=!m.classList.contains('open');
+  m.classList.toggle('open',open); b.classList.toggle('on',open);
+  b.setAttribute('aria-expanded',open?'true':'false');
+  document.body.style.overflow = open ? 'hidden' : '';
+}
+function closeMenu(){
+  const m=$('mobmenu'), b=$('burger');
+  if(!m) return;
+  m.classList.remove('open'); b.classList.remove('on');
+  b.setAttribute('aria-expanded','false');
+  if(!$('modalHost').innerHTML) document.body.style.overflow='';
+}
 function ctab(t){ state.ctab=t; window.scrollTo(0,0); render(); }
-function exitStaff(){ state.mode='customer'; window.scrollTo(0,0); render(); }
-function shopCat(c){ state.mode='customer'; state.view='shop'; state.filters.cat=c; window.scrollTo(0,0); render(); }
+function exitStaff(){ closeMenu(); state.mode='customer'; window.scrollTo(0,0); render(); }
+function shopCat(c){ closeMenu(); state.mode='customer'; state.view='shop'; state.filters.cat=c; window.scrollTo(0,0); render(); }
 
 /* ---------- STAFF AUTH ---------- */
 function requestStaff(){
+  closeMenu();
   if(state.auth){ state.mode='staff'; window.scrollTo(0,0); render(); return; }
   loginModal();
 }
-function signOut(){ state.auth=false; state.mode='customer'; window.scrollTo(0,0); render(); toast('Signed out of staff console'); }
+function signOut(){ closeMenu(); state.auth=false; state.mode='customer'; window.scrollTo(0,0); render(); toast('Signed out of staff console'); }
 function loginModal(err){
   modal('Staff Sign-In', `
     <div class="loginwrap">
@@ -1349,7 +1540,7 @@ function siteFooter(){
               <b>${l}</b>
               <p>${d.street}<br>${d.city}<br>
               Mon–Fri 9–6 · Sat 9–4 · Sun Closed<br>
-              <a href="https://www.google.com/maps/dir/?api=1&destination=${d.dir}" target="_blank" rel="noopener">Get directions →</a></p>
+              <a href="https://www.google.com/maps/dir/?api=1&destination=${d.dir}" target="_blank" rel="noopener" style="display:inline-block;padding:10px 0;min-height:40px">Get directions →</a></p>
             </div>`;}).join('')}
         </div>
       </div>
@@ -1407,7 +1598,7 @@ function cIntake(){
   return `<div class="cpanel">
     <h3>Add a unit to the floor</h3>
     <p class="sub">This is the whole system. Floor staff photographs a machine, fills six fields, hits publish — it is live on the website in under a minute, priced by the engine, counted in the hero unit count. No web developer involved, ever.</p>
-    <div style="display:grid;grid-template-columns:280px 1fr;gap:26px">
+    <div class="intakegrid">
       <div>
         <label class="uploadzone ${pendingPhoto?'has':''}" id="uz">
           ${pendingPhoto?`<img src="${pendingPhoto}" alt="">`:''}
@@ -1545,7 +1736,7 @@ function cPricing(){
       <button class="${P.mode==='comp'?'on':''}" onclick="setPMode('comp')">Market comp</button>
       <button class="${P.mode==='both'?'on':''}" onclick="setPMode('both')">Both</button>
     </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:30px">
+    <div class="pricegrid">
       <div style="${P.mode==='comp'||P.mode==='off'?'opacity:.35;pointer-events:none':''}">
         <h3 style="font-size:12px">Age markdown tiers</h3>
         <p class="sub" style="margin-bottom:12px">Once a unit passes a threshold, the discount applies automatically and the site shows a price-drop badge.</p>
@@ -1652,7 +1843,7 @@ function cPayments(){
         <td class="num" style="color:var(--brushed)">${x.balance?money(x.balance):'—'}</td>
         <td><span class="chip c-a">${x.status}</span></td></tr>`).join('')}
     </table></div>
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,.11);border:1px solid rgba(255,255,255,.11);margin-top:20px">
+    <div class="kpis" style="margin-top:20px">
       <div class="kpi"><b>${money(vol)}</b><span>Card Volume · 7 Days</span></div>
       <div class="kpi"><b>${recent.length}</b><span>Transactions · 7 Days</span></div>
       <div class="kpi"><b>${money(est)}</b><span>Est. Processing Cost</span></div>
