@@ -86,7 +86,8 @@ const ICON = {
   phone:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3h4l2 5-2.5 1.5a12 12 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2z"/></svg>',
   mail:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14"/><path d="M3 6l9 7 9-7"/></svg>',
   check:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M4 12l5 5L20 6"/></svg>',
-  lock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><rect x="4" y="10" width="16" height="11" rx="1"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>'
+  lock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><rect x="4" y="10" width="16" height="11" rx="1"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>',
+  back:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M15 5l-7 7 7 7"/></svg>'
 };
 
 /* ============================================================
@@ -118,6 +119,14 @@ function slotsTaken(kind, dateKey, slot){
 /* ============================================================
    SEED OPERATIONAL DATA — so the boards read like a live week
 ============================================================ */
+function seedOrders(){
+  // one already-paid order so the "I bought it, now book the truck" path can be
+  // demoed cold, without walking checkout first
+  const u = state.units.find(x=>x.model.indexOf('Top-Freezer')>-1) || state.units[0];
+  state.orders.push({ref:'ORD-482913', unitId:u.id, item:`${u.brand} ${u.model}`, serial:u.serial,
+    customer:'Ramona Estes', phone:'8175550196', paid:684, balance:0, full:true,
+    when:new Date(Date.now()-2*864e5), delivery:null});
+}
 function seedOperations(){
   const D = nextDays(10);
   const k = i => dkey(D[Math.min(i, D.length-1)]);

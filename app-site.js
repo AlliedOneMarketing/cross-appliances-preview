@@ -274,6 +274,25 @@ const ES2 = {
 "Sample data filled":"Datos de ejemplo llenados",
 "Signed in — staff console":"Sesión iniciada — consola interna",
 "Signed out of staff console":"Sesión cerrada de la consola interna",
+"Back":"Atrás","Change":"Cambiar","Buying":"Comprando","Holding":"Apartando","Find My Order":"Buscar Mi Orden",
+"Buy This Unit":"Compre Esta Unidad","Hold This Unit":"Aparte Esta Unidad",
+"Held For You":"Apartada Para Usted","Paid In Full":"Pagada Por Completo",
+"Unit held for 72 hours.":"Unidad apartada por 72 horas.",
+"It's yours.":"Ya es suya.",
+"Charged today — paid in full":"Se cobra hoy — pagada por completo",
+"Nothing else is owed.":"No debe nada más.",
+"Keep this number. You can schedule delivery now or any time later with it.":"Guarde este número. Con él puede agendar la entrega ahora o cuando quiera después.",
+"I'll Pick It Up":"Yo La Recojo","Schedule Delivery":"Agendar Entrega",
+"Delivery is scheduled after you buy — you'll get the option on the next screen, or any time later with your order number. This is the only unit at this price.":"La entrega se agenda después de comprar — le aparece la opción en la siguiente pantalla, o cuando quiera después con su número de orden. Esta es la única unidad a este precio.",
+"Use the order number we texted you, or the mobile number you gave us at the counter. Bought in store? Staff can look it up at 817-374-9412.":"Use el número de orden que le mandamos por mensaje, o el celular que nos dio en el mostrador. ¿Compró en la tienda? El personal se lo puede buscar al 817-374-9412.",
+"Haven't bought yet?":"¿Todavía no ha comprado?",
+"Shop the floor first ›":"Vea el piso primero ›",
+"ORD-482913 or your mobile number":"ORD-482913 o su número de celular",
+"No order found — check the number":"No se encontró la orden — revise el número",
+"That order already has a delivery booked":"Esa orden ya tiene una entrega agendada",
+"Find your order first":"Primero busque su orden",
+"paid in full":"pagada por completo",
+"Ice maker cycles, door seals good":"La fábrica de hielo cicla, la puerta sella bien",
 "Optional":"Opcional","e.g. mcruz":"ej. mcruz","4-digit PIN":"PIN de 4 dígitos",
 "Started making a grinding noise on the spin cycle about a week ago.":"Empezó a hacer un ruido de rechinido en el ciclo de exprimido hace como una semana.",
 "Reference":"Referencia","Type":"Tipo","What":"Qué","Amount":"Monto","Balance Due":"Saldo",
@@ -392,6 +411,16 @@ const ES_RE = [
   [/^Confirm Delivery — Pay \$(\d+)$/, "Confirmar Entrega — Pagar $$$1"],
   [/^Book Tech — Pay \$(\d+)$/, "Agendar Técnico — Pagar $$$1"],
   [/^People On The List$/, "Personas En La Lista"],
+  [/^Price drop −(\d+)%$/, "Rebaja de precio −$1%"],
+  [/^Buy It Now — \$([\d,]+)$/, "Cómprela Ya — $$$1"],
+  [/^Or Hold It With \$(\d+) Deposit$/, "O Apártela Con $$$1 De Depósito"],
+  [/^Pay \$([\d,]+) In Full$/, "Pagar $$$1 Completo"],
+  [/^Balance of \$([\d,]+) is due at pickup or delivery\.$/, "Quedan $$$1 por pagar al recoger o entregar."],
+  [/^This unit is reserved\. Call ([\d-]+) to be next in line\.$/, "Esta unidad está apartada. Llame al $1 para ser el siguiente en la fila."],
+  [/^We texted (\w+) the details\. The (.+) is off the floor and tagged with this number\.$/,
+    "Le mandamos los detalles a $1 por mensaje. La $2 ya salió del piso y quedó etiquetada con este número."],
+  [/^Order ([A-Z]{3}-\d+) · (.+) · \$([\d,]+) balance due$/, "Orden $1 · $2 · $$$3 por pagar"],
+  [/^Order ([A-Z]{3}-\d+) · (.+) · paid in full$/, "Orden $1 · $2 · pagada por completo"],
   [/^(\d+) days?$/, "$1 días"],
   [/^(\d+) reviews?$/, "$1 reseñas"],
   [/^Reserve With \$(\d+) Deposit$/, "Aparte Con $$$1 De Depósito"],
@@ -814,22 +843,24 @@ function openUnit(id){
         <div class="stack">
           ${u.status==='reserved'
             ? `<div class="why" style="border-left-color:var(--amber)">This unit is reserved. Call ${MAIN_PHONE} to be next in line.</div>`
-            : `<button class="btn b-rust" onclick="openCheckout(${u.id})">Reserve With $50 Deposit</button>
-               <button class="btn b-ghost" onclick="closeModal();go('delivery')">Schedule Delivery</button>
+            : `<button class="btn b-rust" onclick="openCheckout(${u.id},'full')">Buy It Now — ${money(p.price + Math.round(p.price*0.0825))}</button>
+               <button class="btn b-ghost" onclick="openCheckout(${u.id},'deposit')">Or Hold It With $50 Deposit</button>
                <button class="btn b-ghost" onclick="closeModal();go('financing')">See Financing Options</button>`}
         </div>
-        <p class="hint" style="margin-top:12px">This is the only unit at this price. Deposit holds it for 72 hours and comes off the total.</p>
+        <p class="hint" style="margin-top:12px">Delivery is scheduled after you buy — you'll get the option on the next screen, or any time later with your order number. This is the only unit at this price.</p>
       </div>
     </div>`);
 }
 
 /* ---------- CHECKOUT ---------- */
-function openCheckout(id){
+function openCheckout(id, mode){
   const u=state.units.find(x=>x.id===id); const p=priceOf(u);
-  const deposit=50, tax=Math.round(p.price*0.0825), total=p.price+tax;
-  modal('Reserve This Unit', `
+  const tax=Math.round(p.price*0.0825), total=p.price+tax;
+  const full = mode==='full';
+  const charge = full ? total : 50;
+  modal(full?'Buy This Unit':'Hold This Unit', `
     <div class="frow">
-      <div class="f full"><label>Reserving</label>
+      <div class="f full"><label>${full?'Buying':'Holding'}</label>
         <div style="font-family:var(--fh);font-weight:800;font-size:16px">${u.brand} ${u.model}</div>
         <div class="hint">${u.serial} · ${u.loc} · ${GRADE_LABEL[u.grade]}</div></div>
       <div class="f"><label>Full name</label><input type="text" id="ckName" placeholder="Jane Cross"></div>
@@ -842,37 +873,55 @@ function openCheckout(id){
     <div class="sumbox">
       <div class="sumrow"><span>Unit price</span><span>${money(p.price)}</span></div>
       <div class="sumrow"><span>Estimated sales tax (8.25%)</span><span>${money(tax)}</span></div>
-      <div class="sumrow" style="color:var(--brushed)"><span>Balance due at pickup or delivery</span><span>${money(total-deposit)}</span></div>
-      <div class="sumrow tot"><span>Charged today — deposit</span><span>${money(deposit)}</span></div>
+      ${full
+        ? `<div class="sumrow" style="color:var(--brushed)"><span>Balance due at pickup or delivery</span><span>${money(0)}</span></div>
+           <div class="sumrow tot"><span>Charged today — paid in full</span><span>${money(total)}</span></div>`
+        : `<div class="sumrow" style="color:var(--brushed)"><span>Balance due at pickup or delivery</span><span>${money(total-50)}</span></div>
+           <div class="sumrow tot"><span>Charged today — deposit</span><span>${money(50)}</span></div>`}
     </div>
-    <button class="btn b-rust" style="width:100%" onclick="payDeposit(${u.id},${deposit},${total})">Pay ${money(deposit)} Deposit</button>
+    <button class="btn b-rust" style="width:100%" onclick="payNow(${u.id},'${full?'full':'deposit'}',${charge},${total})">${full?`Pay ${money(total)} In Full`:`Pay ${money(50)} Deposit`}</button>
     <p class="hint" style="margin-top:11px;text-align:center">Simulated transaction — no live gateway is connected in this prototype. Production routes through Accept Blue.</p>
-  `,'sm');
+  `,'sm', `openUnit(${u.id})`);
 }
 function fmtCard(el){ el.value = el.value.replace(/\D/g,'').slice(0,16).replace(/(.{4})/g,'$1 ').trim(); }
-function payDeposit(id,deposit,total){
+function payNow(id,mode,charge,total){
   const u=state.units.find(x=>x.id===id);
   const name=($('ckName').value||'').trim();
+  const phone=($('ckPhone').value||'').trim();
   const card=($('ckCard').value||'').replace(/\s/g,'');
   if(!name){ toast('Enter a name'); return; }
   if(card.length<15){ toast('Enter a card number'); return; }
-  u.status='reserved';
-  const c=confNum('RES');
-  state.payments.push({ref:c,type:'Deposit',desc:`${u.brand} ${u.model}`,customer:name,amount:deposit,status:'Approved',when:new Date(),balance:total-deposit});
-  modal('Reserved', `<div class="ok">
+  const full = mode==='full';
+  // Sold units leave the floor. The order is what survives — that is the thing
+  // delivery scheduling looks up later, so a bought machine is never orphaned.
+  u.status = full ? 'sold' : 'reserved';
+  const c = confNum(full?'ORD':'RES');
+  state.orders.push({ref:c, unitId:u.id, item:`${u.brand} ${u.model}`, serial:u.serial,
+    customer:name, phone:digits(phone), paid:charge, balance:total-charge, full:full,
+    when:new Date(), delivery:null});
+  state.payments.push({ref:c, type:full?'Counter sale':'Deposit', desc:`${u.brand} ${u.model}`,
+    customer:name, amount:charge, status:'Approved', when:new Date(), balance:total-charge});
+  modal(full?'Paid In Full':'Held For You', `<div class="ok">
       <div class="tick">✓</div>
-      <h2>Unit reserved for 72 hours.</h2>
-      <p>We texted ${esc(name.split(' ')[0])} the details. The ${u.brand} is off the floor and tagged with this number.</p>
+      <h2>${full?'It\'s yours.':'Unit held for 72 hours.'}</h2>
+      <p>We texted ${esc(name.split(' ')[0])} the details. The ${esc(u.brand)} is off the floor and tagged with this number.</p>
       <div class="conf">${c}</div>
-      <p style="margin-bottom:18px">Balance of ${money(total-deposit)} is due at pickup or delivery.</p>
-      <button class="btn b-rust" onclick="closeModal();go('delivery')">Schedule Delivery Now</button>
-      <button class="btn b-ghost" style="margin-left:8px" onclick="closeModal()">Done</button>
+      <p style="margin-bottom:6px">${full?'Nothing else is owed.':`Balance of ${money(total-charge)} is due at pickup or delivery.`}</p>
+      <p class="hint" style="margin-bottom:18px">Keep this number. You can schedule delivery now or any time later with it.</p>
+      <button class="btn b-rust" onclick="startDelivery('${c}')">Schedule Delivery</button>
+      <button class="btn b-ghost" style="margin-left:8px" onclick="closeModal()">I'll Pick It Up</button>
     </div>`,'sm');
   render();
 }
+function digits(v){ return (v||'').replace(/\D/g,''); }
+function findOrderBy(q){
+  const t=(q||'').trim().toLowerCase(), d=digits(q);
+  if(!t) return null;
+  return state.orders.find(o => o.ref.toLowerCase()===t || (d.length>=10 && o.phone.endsWith(d.slice(-10)))) || null;
+}
 
 /* ---------- DELIVERY ---------- */
-let dSel={date:null,slot:null};
+let dSel={date:null,slot:null,order:null};
 function pageDelivery(){
   const days=nextDays(10);
   return `<div class="section"><div class="wrap">
@@ -904,11 +953,7 @@ function pageDelivery(){
           <div class="f full"><label>Street address</label><input type="text" id="dvAddr" placeholder="1204 Palo Pinto St"></div>
           <div class="f"><label>City</label><input type="text" id="dvCity" value="Weatherford"></div>
           <div class="f"><label>ZIP</label><input type="text" id="dvZip" value="76086" maxlength="5"></div>
-          <div class="f full"><label>What are we delivering?</label>
-            <select id="dvUnit">
-              <option value="">— Select a reserved or in-stock unit —</option>
-              ${availableUnits().map(u=>`<option value="${u.id}">${u.brand} ${u.model} — ${u.serial}</option>`).join('')}
-            </select></div>
+          <div class="f full"><label>What are we delivering?</label>${orderBlock()}</div>
           <div class="f full"><label>Gate code, dogs, stairs, anything we should know</label><textarea id="dvNotes" rows="2" placeholder="Optional"></textarea></div>
         </div>
         <div class="sumbox">
@@ -921,23 +966,56 @@ function pageDelivery(){
     </div>
   </div></div>${siteFooter()}`;
 }
+/* Delivery is attached to an ORDER, not to whatever is currently on the floor.
+   A unit the staff marked sold vanishes from inventory — the order does not,
+   so the person who actually bought it can still book a truck. */
+function orderBlock(){
+  const o = dSel.order ? state.orders.find(x=>x.ref===dSel.order) : null;
+  if(o) return `<div class="ordercard">
+      <div>
+        <b>${esc(o.item)}</b>
+        <span>Order ${o.ref} · ${esc(o.customer)}${o.balance>0?` · ${money(o.balance)} balance due`:' · paid in full'}</span>
+      </div>
+      <button class="lnk" onclick="clearOrder()">Change</button>
+    </div>`;
+  return `<div class="orderfind">
+      <div class="ofrow">
+        <input type="text" id="dvOrder" placeholder="ORD-482913 or your mobile number">
+        <button class="btn b-dark" onclick="lookupOrder()">Find My Order</button>
+      </div>
+      <p class="hint">Use the order number we texted you, or the mobile number you gave us at the counter. Bought in store? Staff can look it up at ${MAIN_PHONE}.</p>
+      <p class="hint">Haven't bought yet? <button class="lnk" onclick="go('shop')">Shop the floor first &rsaquo;</button></p>
+    </div>`;
+}
+function lookupOrder(){
+  const o = findOrderBy(($('dvOrder')||{}).value);
+  if(!o){ toast('No order found — check the number'); return; }
+  if(o.delivery){ toast('That order already has a delivery booked'); return; }
+  dSel.order = o.ref;
+  if(!$('dvName').value) $('dvName').value = o.customer;
+  render();
+}
+function clearOrder(){ dSel.order=null; render(); }
+function startDelivery(ref){ closeModal(); dSel.order=ref; go('delivery'); }
 function pickDay(k){ dSel.date=k; dSel.slot=null; render(); }
 function pickSlot(s){ dSel.slot=s; render(); }
 function bookDelivery(){
-  const name=($('dvName').value||'').trim(), addr=($('dvAddr').value||'').trim(), unitId=$('dvUnit').value;
+  const name=($('dvName').value||'').trim(), addr=($('dvAddr').value||'').trim();
+  const o = dSel.order ? state.orders.find(x=>x.ref===dSel.order) : null;
+  if(!o){ toast('Find your order first'); return; }
   if(!dSel.date||!dSel.slot){ toast('Pick a date and window'); return; }
   if(!name||!addr){ toast('Name and address required'); return; }
-  const u = unitId ? state.units.find(x=>x.id===+unitId) : null;
   const c=confNum('DEL');
-  state.deliveries.push({ref:c,dateKey:dSel.date,slot:dSel.slot,customer:name,addr:addr+', '+$('dvCity').value+' '+$('dvZip').value,item:u?`${u.brand} ${u.model}`:'Unit TBD',notes:$('dvNotes').value});
-  state.payments.push({ref:c,type:'Delivery fee',desc:u?`${u.brand} ${u.model}`:'Delivery',customer:name,amount:79,status:'Approved',when:new Date(),balance:0});
+  o.delivery=c;
+  state.deliveries.push({ref:c,dateKey:dSel.date,slot:dSel.slot,customer:name,addr:addr+', '+$('dvCity').value+' '+$('dvZip').value,item:o.item,notes:$('dvNotes').value});
+  state.payments.push({ref:c,type:'Delivery fee',desc:o.item,customer:name,amount:79,status:'Approved',when:new Date(),balance:0});
   const d=new Date(dSel.date+'T12:00:00');
   modal('Delivery Scheduled', `<div class="ok">
     <div class="tick">✓</div><h2>You're on the truck.</h2>
     <p>${dfull(d)}, ${dSel.slot}. We'll text ${esc(name.split(' ')[0])} when the driver is 30 minutes out.</p>
     <div class="conf">${c}</div>
     <button class="btn b-rust" onclick="closeModal();go('shop')">Back To Inventory</button></div>`,'sm');
-  dSel={date:null,slot:null};
+  dSel={date:null,slot:null,order:null};
   clearForm(['dvName','dvPhone','dvAddr','dvNotes']);
   render();
 }

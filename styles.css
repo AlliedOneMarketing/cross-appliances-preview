@@ -173,6 +173,22 @@ select:focus,input:focus,textarea:focus{border-color:var(--rust)}
 .mhead{background:var(--graphite);color:var(--paper);padding:15px 22px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:5}
 .mhead h3{font-weight:800;font-size:14px;letter-spacing:.09em;text-transform:uppercase}
 .mhead button{color:var(--fog);font-size:24px;line-height:1;padding:0 4px}
+.mhead .mback{display:inline-flex;align-items:center;gap:5px;font-family:var(--fh);font-weight:800;
+  font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--fog);
+  border:1px solid rgba(244,241,236,.3);padding:8px 12px;margin-right:14px;min-height:34px;flex:0 0 auto}
+.mhead .mback svg{width:11px;height:11px}
+.ordercard{display:flex;justify-content:space-between;align-items:center;gap:14px;
+  background:var(--bone);border:1px solid var(--graphite);border-left:3px solid var(--rust);padding:13px 15px}
+.ordercard b{display:block;font-family:var(--fh);font-weight:800;font-size:14px}
+.ordercard span{display:block;font-size:12px;color:var(--brushed);margin-top:3px}
+.orderfind .ofrow{display:flex;gap:8px;align-items:stretch;flex-wrap:wrap}
+.orderfind .ofrow input{flex:1;min-width:0}
+.orderfind .ofrow .btn{flex:0 0 auto;white-space:nowrap}
+.lnk{color:var(--rust);text-decoration:underline;font-size:inherit;font-family:inherit;padding:0}
+.lnk:hover{color:var(--rust-deep)}
+@media(max-width:560px){.orderfind .ofrow{flex-direction:column}.orderfind .ofrow .btn{width:100%}}
+.mhead .mback:hover{background:var(--rust);border-color:var(--rust);color:#fff}
+.mhead h3{flex:1}
 .mhead button:hover{color:#fff}
 .mbody{padding:26px}
 .det{display:grid;grid-template-columns:1fr 1fr;gap:28px}

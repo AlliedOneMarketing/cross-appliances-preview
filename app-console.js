@@ -365,10 +365,14 @@ function cPayments(){
 /* ============================================================
    MODAL
 ============================================================ */
-function modal(title, body, size){
+function modal(title, body, size, back){
+  // `back` is a JS expression string, not stored HTML — going back re-runs the
+  // opener so the previous screen is rebuilt from live state, never a stale copy
   $('modalHost').innerHTML=`<div class="scrim" onclick="if(event.target===this)closeModal()">
     <div class="modal ${size||''}">
-      <div class="mhead"><h3>${title}</h3><button onclick="closeModal()">&times;</button></div>
+      <div class="mhead">
+        ${back?`<button class="mback" onclick="${back}">${ICON.back} Back</button>`:''}
+        <h3>${title}</h3><button onclick="closeModal()">&times;</button></div>
       <div class="mbody">${body}</div>
     </div></div>`;
   document.body.style.overflow='hidden';
@@ -378,5 +382,6 @@ function closeModal(){ $('modalHost').innerHTML=''; document.body.style.overflow
 document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeModal(); });
 
 seedOperations();
+seedOrders();
 applyHash();
 render();
