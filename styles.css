@@ -167,10 +167,11 @@ select:focus,input:focus,textarea:focus{border-color:var(--rust)}
 .empty{grid-column:1/-1;text-align:center;padding:60px 20px;border:1px dashed var(--line);color:var(--iron)}
 
 /* ---------- MODAL ---------- */
-.scrim{position:fixed;inset:0;background:rgba(22,25,28,.72);z-index:100;display:flex;align-items:flex-start;justify-content:center;padding:34px 18px;overflow-y:auto}
-.modal{background:var(--paper);max-width:860px;width:100%;border:1px solid var(--graphite)}
+.scrim{position:fixed;inset:0;background:rgba(22,25,28,.8);z-index:100;display:flex;align-items:center;justify-content:center;padding:28px 18px;overscroll-behavior:contain}
+.modal{background:var(--paper);max-width:860px;width:100%;border:1px solid var(--graphite);
+  display:flex;flex-direction:column;max-height:calc(100vh - 56px);max-height:calc(100dvh - 56px)}
 .modal.sm{max-width:520px}
-.mhead{background:var(--graphite);color:var(--paper);padding:15px 22px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:5}
+.mhead{background:var(--graphite);color:var(--paper);padding:15px 22px;display:flex;justify-content:space-between;align-items:center;flex:0 0 auto;z-index:5}
 .mhead h3{font-weight:800;font-size:14px;letter-spacing:.09em;text-transform:uppercase}
 .mhead button{color:var(--fog);font-size:24px;line-height:1;padding:0 4px}
 .mhead .mback{display:inline-flex;align-items:center;gap:5px;font-family:var(--fh);font-weight:800;
@@ -190,7 +191,12 @@ select:focus,input:focus,textarea:focus{border-color:var(--rust)}
 .mhead .mback:hover{background:var(--rust);border-color:var(--rust);color:#fff}
 .mhead h3{flex:1}
 .mhead button:hover{color:#fff}
-.mbody{padding:26px}
+.mbody{padding:26px;flex:1 1 auto;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+.mfoot{display:block;flex:0 0 auto;background:var(--paper);border-top:1px solid var(--line);
+  padding:13px 16px calc(13px + env(safe-area-inset-bottom));box-shadow:0 -10px 22px -12px rgba(22,25,28,.3)}
+.mfoot .btn{width:100%;min-height:52px}
+.mfoot .hint{margin:9px 0 0;text-align:center}
+.mclose{min-width:44px;min-height:44px;display:flex;align-items:center;justify-content:center}
 .det{display:grid;grid-template-columns:1fr 1fr;gap:28px}
 .det .ph{aspect-ratio:1/1;background:linear-gradient(170deg,#EFEBE4,#DAD4CA);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;overflow:hidden}
 .det .ph img{width:100%;height:100%;object-fit:cover}
@@ -462,7 +468,17 @@ footer.site a:hover{color:#fff}
  .slots{min-width:0}
  /* touch-size the small text links once we're on any touch-class device */
  .fcol li{padding:0}
- .fcol li button{padding:13px 0;min-height:46px;width:100%;border-bottom:1px solid rgba(255,255,255,.07)}
+ .fcol li button,.fcol li a{padding:13px 0;min-height:46px;width:100%;display:block;
+   border-bottom:1px solid rgba(255,255,255,.07);text-decoration:none}
+ /* the town strip is a run of inline links — they need vertical room to be tappable */
+ .fserve{line-height:1.4}
+ .fserve a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;min-width:44px;padding:0 6px}
+ .floc a{min-height:44px;display:inline-flex;align-items:center}
+ .loccard .addr,.loccard .addr a,.loccard a[href^="tel"],.loccard a[href^="mailto"]{
+   min-height:44px;display:inline-flex;align-items:center}
+ .locmeta a,.lochours a{min-height:44px;display:inline-flex;align-items:center}
+ .lnk{min-height:44px;display:inline-flex;align-items:center;text-align:left}
+ .ordercard .lnk{min-height:44px}
  .fcol ul{margin-top:-4px}
  .u-phone{padding:8px 0;min-height:40px}
  .fphone{padding:6px 0;display:inline-block;min-height:44px}
@@ -497,6 +513,22 @@ footer.site a:hover{color:#fff}
 }
 @media(max-width:640px){
  :root{--hh:104px}
+ /* On a phone a centred card wastes the screen and buries the CTAs. Go
+    full-bleed sheet, and pin the action stack to the bottom so the buttons
+    are on screen the whole time instead of somewhere past the fold. */
+ .scrim{padding:0;align-items:stretch}
+ .modal,.modal.sm{max-width:none;max-height:none;height:100vh;height:100dvh;width:100%;border:0}
+ .mhead{padding:13px 14px;padding-top:calc(13px + env(safe-area-inset-top))}
+ .mhead h3{font-size:12px}
+ .mhead .mback{margin-right:10px;padding:8px 10px;min-height:38px}
+ .mbody{padding:18px 16px calc(14px + env(safe-area-inset-bottom))}
+ .mbody .stack .btn{width:100%;min-height:50px}
+ .mhead .mclose{min-height:44px;font-size:26px}
+ .modes button{min-height:46px;padding:14px 10px}
+ .mhead .mback{min-height:44px}
+ .det{gap:20px}
+ .det .ph{max-width:none}
+ .ordercard{flex-direction:column;align-items:flex-start;gap:8px}
  /* strip is taller on phones purely so the two things in it — call and
     language — clear the 44px tap-target floor */
  .util .wrap{height:44px;gap:8px}
@@ -509,7 +541,7 @@ footer.site a:hover{color:#fff}
  .logo{font-size:16px;display:flex;align-items:center;min-height:44px}
  .demobar{font-size:9px;letter-spacing:.07em;padding:6px 12px;line-height:1.5}
  .modeswitch{display:none}
- .callbtn{padding:12px 14px;min-height:44px}
+ .callbtn{padding:12px 14px;min-height:44px;min-width:46px;justify-content:center}
  .hero{padding:44px 0 48px;background-position:center 46%}
  .hero h1{font-size:clamp(30px,8.6vw,40px)}
  .hero p{font-size:14.5px}

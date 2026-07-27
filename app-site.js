@@ -670,9 +670,8 @@ function loginModal(err){
       <div class="f full"><label>Staff ID</label><input type="text" id="lgUser" placeholder="e.g. mcruz" autocomplete="off"></div>
       <div class="f full"><label>PIN</label><input type="password" id="lgPin" placeholder="4-digit PIN" maxlength="4" onkeydown="if(event.key==='Enter')doLogin()"></div>
     </div>
-    <button class="btn b-rust" style="width:100%" onclick="doLogin()">Sign In</button>
     <div class="demo-creds"><b>Demo credentials</b> — Staff ID <b>mcruz</b> · PIN <b>1506</b>. In production this is per-person, with roles: counter staff see inventory and scheduling, owners also see cost, margin and payments.</div>
-  `,'sm');
+  `,'sm','',`<button class="btn b-rust" onclick="doLogin()">Sign In</button>`);
   setTimeout(()=>{ const el=$('lgUser'); if(el) el.focus(); },60);
 }
 function doLogin(){
@@ -843,13 +842,12 @@ function openUnit(id){
         <div class="stack">
           ${u.status==='reserved'
             ? `<div class="why" style="border-left-color:var(--amber)">This unit is reserved. Call ${MAIN_PHONE} to be next in line.</div>`
-            : `<button class="btn b-rust" onclick="openCheckout(${u.id},'full')">Buy It Now — ${money(p.price + Math.round(p.price*0.0825))}</button>
-               <button class="btn b-ghost" onclick="openCheckout(${u.id},'deposit')">Or Hold It With $50 Deposit</button>
+            : `<button class="btn b-ghost" onclick="openCheckout(${u.id},'deposit')">Or Hold It With $50 Deposit</button>
                <button class="btn b-ghost" onclick="closeModal();go('financing')">See Financing Options</button>`}
         </div>
         <p class="hint" style="margin-top:12px">Delivery is scheduled after you buy — you'll get the option on the next screen, or any time later with your order number. This is the only unit at this price.</p>
       </div>
-    </div>`);
+    </div>`, '', '', u.status==='reserved' ? '' : `<button class="btn b-rust" onclick="openCheckout(${u.id},'full')">Buy It Now — ${money(p.price + Math.round(p.price*0.0825))}</button>`);
 }
 
 /* ---------- CHECKOUT ---------- */
@@ -879,9 +877,9 @@ function openCheckout(id, mode){
         : `<div class="sumrow" style="color:var(--brushed)"><span>Balance due at pickup or delivery</span><span>${money(total-50)}</span></div>
            <div class="sumrow tot"><span>Charged today — deposit</span><span>${money(50)}</span></div>`}
     </div>
-    <button class="btn b-rust" style="width:100%" onclick="payNow(${u.id},'${full?'full':'deposit'}',${charge},${total})">${full?`Pay ${money(total)} In Full`:`Pay ${money(50)} Deposit`}</button>
-    <p class="hint" style="margin-top:11px;text-align:center">Simulated transaction — no live gateway is connected in this prototype. Production routes through Accept Blue.</p>
-  `,'sm', `openUnit(${u.id})`);
+    <p class="hint" style="margin-top:12px;text-align:center">Simulated transaction — no live gateway is connected in this prototype. Production routes through Accept Blue.</p>
+  `,'sm', `openUnit(${u.id})`,
+    `<button class="btn b-rust" onclick="payNow(${u.id},'${full?'full':'deposit'}',${charge},${total})">${full?`Pay ${money(total)} In Full`:`Pay ${money(50)} Deposit`}</button>`);
 }
 function fmtCard(el){ el.value = el.value.replace(/\D/g,'').slice(0,16).replace(/(.{4})/g,'$1 ').trim(); }
 function payNow(id,mode,charge,total){
@@ -1182,9 +1180,8 @@ function finModal(partner){
       <div class="f"><label>Which store?</label>
         <select id="fnLoc">${LOCATIONS.map(l=>`<option>${l}</option>`).join('')}</select></div>
     </div>
-    <button class="btn b-rust" style="width:100%" onclick="submitFin('${partner}')">Text Me The Application Link</button>
     <p class="hint" style="margin-top:11px;text-align:center">Prototype — no application is actually submitted and no credit inquiry is made.</p>
-  `,'sm');
+  `,'sm','',`<button class="btn b-rust" onclick="submitFin('${partner}')">Text Me The Application Link</button>`);
 }
 function submitFin(partner){
   const name=($('fnName').value||'').trim(), phone=($('fnPhone').value||'').trim();

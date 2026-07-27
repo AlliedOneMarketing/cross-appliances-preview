@@ -32,6 +32,9 @@
 .townlinks a:hover{border-color:var(--graphite)}
 .townlinks a span{font-family:var(--fb);font-weight:500;font-size:11.5px;color:var(--brushed)}
 .crumb{font-size:12.5px;color:var(--brushed);margin-bottom:4px}
+.revgrid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:26px}
+.revcard{background:var(--bone);border:1px solid var(--line);padding:20px 22px;min-width:0;overflow-wrap:anywhere}
+.revcard p{max-width:none}
 .crumb a{color:var(--iron);text-decoration:none}
 .crumb a:hover{color:var(--rust)}
 .lpcta{background:var(--steel);color:var(--paper);padding:30px;margin:34px 0 0;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
@@ -39,6 +42,15 @@
 .lpcta p{color:var(--fog);font-size:14px;margin:0;max-width:52ch}
 .lpcta .b{display:flex;gap:10px;flex-wrap:wrap}
 @media(max-width:820px){.factgrid,.townlinks{grid-template-columns:1fr 1fr}}
+@media(max-width:820px){
+  .revgrid{grid-template-columns:1fr}
+  .lp,.lp *{min-width:0}
+  .crumb{line-height:2.6}
+  .crumb a{display:inline-flex;align-items:center;min-height:44px;min-width:44px;padding:0 2px}
+  .lpcta{flex-direction:column;align-items:flex-start}
+  .lpcta .b{width:100%}
+  .lpcta .b .btn{width:100%;min-height:48px}
+}
 @media(max-width:560px){.factgrid,.townlinks{grid-template-columns:1fr}.lp{padding:34px 0 40px}}
 </style>
 
@@ -88,8 +100,8 @@
     <div><span>Yelp</span><b>1 reviews</b></div>
   </div>
 
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:26px">
-    <div style="background:var(--bone);border:1px solid var(--line);padding:20px 22px">
+  <div class="revgrid">
+    <div class="revcard">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
         <span class="chip" style="background:#2E6B4C;color:#fff">Google</span>
         <span style="color:var(--amber);font-size:15px;letter-spacing:2px">★★★★★</span>
@@ -97,7 +109,7 @@
       <p style="font-size:14.5px;line-height:1.6;color:var(--graphite);margin-bottom:12px">"Bought a washer and dryer set here after our old one quit. They told us straight up which one had a dent and knocked money off for it. Delivered two days later and hooked it all up. No games."</p>
       <div style="font-family:var(--fh);font-weight:800;font-size:12px;letter-spacing:.06em;text-transform:uppercase">Tanya M.
         <span style="font-family:var(--fb);font-weight:400;color:var(--brushed);text-transform:none;letter-spacing:0"> · 2026-07-18</span></div>
-    </div><div style="background:var(--bone);border:1px solid var(--line);padding:20px 22px">
+    </div><div class="revcard">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
         <span class="chip" style="background:#2E6B4C;color:#fff">Google</span>
         <span style="color:var(--amber);font-size:15px;letter-spacing:2px">★★★★★</span>
@@ -105,7 +117,7 @@
       <p style="font-size:14.5px;line-height:1.6;color:var(--graphite);margin-bottom:12px">"Nino came out same week and fixed our fridge for way less than the quote we got from the big place in Fort Worth. Honest people."</p>
       <div style="font-family:var(--fh);font-weight:800;font-size:12px;letter-spacing:.06em;text-transform:uppercase">Ruben C.
         <span style="font-family:var(--fb);font-weight:400;color:var(--brushed);text-transform:none;letter-spacing:0"> · 2026-07-11</span></div>
-    </div><div style="background:var(--bone);border:1px solid var(--line);padding:20px 22px">
+    </div><div class="revcard">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
         <span class="chip" style="background:#2B3238;color:#fff">Facebook</span>
         <span style="color:var(--amber);font-size:15px;letter-spacing:2px">★★★★★</span>
@@ -113,7 +125,7 @@
       <p style="font-size:14.5px;line-height:1.6;color:var(--graphite);margin-bottom:12px">"Used Acima since my credit is not great and walked out with a fridge the same day. Michael was patient with all my questions."</p>
       <div style="font-family:var(--fh);font-weight:800;font-size:12px;letter-spacing:.06em;text-transform:uppercase">Karla B.
         <span style="font-family:var(--fb);font-weight:400;color:var(--brushed);text-transform:none;letter-spacing:0"> · 2026-07-03</span></div>
-    </div><div style="background:var(--bone);border:1px solid var(--line);padding:20px 22px">
+    </div><div class="revcard">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
         <span class="chip" style="background:#C24A1E;color:#fff">Yelp</span>
         <span style="color:var(--amber);font-size:15px;letter-spacing:2px">★★★★☆</span>
@@ -121,7 +133,7 @@
       <p style="font-size:14.5px;line-height:1.6;color:var(--graphite);margin-bottom:12px">"Good prices and the warranty is real — my dryer quit after three weeks and they repaired it free. Only reason it is four stars is the showroom is tight to walk through."</p>
       <div style="font-family:var(--fh);font-weight:800;font-size:12px;letter-spacing:.06em;text-transform:uppercase">Dee W.
         <span style="font-family:var(--fb);font-weight:400;color:var(--brushed);text-transform:none;letter-spacing:0"> · 2026-06-27</span></div>
-    </div><div style="background:var(--bone);border:1px solid var(--line);padding:20px 22px">
+    </div><div class="revcard">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
         <span class="chip" style="background:#2E6B4C;color:#fff">Google</span>
         <span style="color:var(--amber);font-size:15px;letter-spacing:2px">★★★★★</span>
@@ -129,7 +141,7 @@
       <p style="font-size:14.5px;line-height:1.6;color:var(--graphite);margin-bottom:12px">"Third appliance we have bought from Cross. They remember you. Hard to say that about anywhere else these days."</p>
       <div style="font-family:var(--fh);font-weight:800;font-size:12px;letter-spacing:.06em;text-transform:uppercase">Marcus T.
         <span style="font-family:var(--fb);font-weight:400;color:var(--brushed);text-transform:none;letter-spacing:0"> · 2026-06-19</span></div>
-    </div><div style="background:var(--bone);border:1px solid var(--line);padding:20px 22px">
+    </div><div class="revcard">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
         <span class="chip" style="background:#2E6B4C;color:#fff">Google</span>
         <span style="color:var(--amber);font-size:15px;letter-spacing:2px">★★★★★</span>

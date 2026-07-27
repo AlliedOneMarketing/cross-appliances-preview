@@ -365,15 +365,17 @@ function cPayments(){
 /* ============================================================
    MODAL
 ============================================================ */
-function modal(title, body, size, back){
+function modal(title, body, size, back, action){
   // `back` is a JS expression string, not stored HTML — going back re-runs the
-  // opener so the previous screen is rebuilt from live state, never a stale copy
+  // opener so the previous screen is rebuilt from live state, never a stale copy.
+  // `action` is the primary CTA, pinned in a real footer so phones always show it.
   $('modalHost').innerHTML=`<div class="scrim" onclick="if(event.target===this)closeModal()">
     <div class="modal ${size||''}">
       <div class="mhead">
         ${back?`<button class="mback" onclick="${back}">${ICON.back} Back</button>`:''}
-        <h3>${title}</h3><button onclick="closeModal()">&times;</button></div>
+        <h3>${title}</h3><button class="mclose" onclick="closeModal()" aria-label="Close">&times;</button></div>
       <div class="mbody">${body}</div>
+      ${action?`<div class="mfoot">${action}</div>`:''}
     </div></div>`;
   document.body.style.overflow='hidden';
   applyLang();
