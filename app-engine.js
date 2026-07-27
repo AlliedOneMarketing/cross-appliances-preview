@@ -95,6 +95,18 @@ const ICON = {
 ============================================================ */
 const DELIVERY_SLOTS = [['8:00 – 10:00 AM',2],['10:00 AM – 12:00 PM',2],['12:00 – 2:00 PM',2],['2:00 – 4:00 PM',2],['4:00 – 6:00 PM',1]];
 const SERVICE_SLOTS  = [['8:00 – 11:00 AM',3],['11:00 AM – 2:00 PM',3],['2:00 – 5:00 PM',3]];
+const CREW = {
+  delivery: ['Truck 1 — Nino', 'Truck 2 — Javier'],
+  service:  ['Nino Cruz', 'Danny Ruiz'],
+};
+// One status ladder for both job types. Each rung has the text the customer
+// actually gets, so dispatch and comms are the same action, not two.
+const JOB_STAGES = [
+  ['scheduled',  'Scheduled',   'booked, not yet assigned'],
+  ['assigned',   'Assigned',    'crew is on it'],
+  ['enroute',    'On The Way',  'left the shop'],
+  ['done',       'Completed',   'delivered or repaired'],
+];
 
 function nextDays(n){
   const out=[]; const base=new Date();

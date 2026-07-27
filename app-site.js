@@ -293,6 +293,100 @@ const ES2 = {
 "Find your order first":"Primero busque su orden",
 "paid in full":"pagada por completo",
 "Ice maker cycles, door seals good":"La fábrica de hielo cicla, la puerta sella bien",
+// --- inventory editing ---
+"Edit":"Editar","Save Changes":"Guardar Cambios","Delete Unit":"Eliminar Unidad",
+"Model description":"Descripción del modelo","Status on the website":"Estado en el sitio",
+"Live — showing on the site":"En piso — visible en el sitio",
+"Reserved — held for a customer":"Apartada — guardada para un cliente",
+"Sold — off the site":"Vendida — fuera del sitio",
+"Photo attached — tap to replace":"Foto adjunta — toque para reemplazar",
+"Remove photo":"Quitar foto","Remove Photo":"Quitar Foto","Photo removed":"Foto quitada",
+"Remove this unit entirely":"Eliminar esta unidad por completo",
+"Use this for a duplicate or a mis-entry. Marking it sold is the right move for a machine that actually left the floor.":"Use esto para un duplicado o una captura equivocada. Si la máquina de verdad salió del piso, lo correcto es marcarla vendida.",
+"Delete This Unit?":"¿Eliminar Esta Unidad?","Yes, Delete It":"Sí, Eliminarla",
+"This deletes the unit and its photo from the system. It disappears from the website immediately. Sales already recorded against it stay in the payments ledger.":"Esto elimina la unidad y su foto del sistema. Desaparece del sitio de inmediato. Las ventas ya registradas se quedan en el libro de pagos.",
+"If the machine actually sold, close this and set the status to Sold instead — that keeps the history.":"Si la máquina realmente se vendió, cierre esto y mejor cambie el estado a Vendida — así se conserva el historial.",
+"Unit updated — the website is already showing it":"Unidad actualizada — el sitio ya la está mostrando",
+"Unit deleted — removed from the website":"Unidad eliminada — quitada del sitio",
+// --- bulk import ---
+"Or bring in a whole list at once":"O traiga una lista completa de una vez",
+"Auction haul, a spreadsheet you already keep, a list from another store — load it in one pass instead of typing forty units. Every row is checked and shown to you before anything reaches the website.":"Lo que trajo de subasta, una hoja de cálculo que ya lleva, una lista de otra tienda — cárguela de una vez en lugar de capturar cuarenta unidades. Cada fila se revisa y se le muestra antes de que algo llegue al sitio.",
+"Download The Template":"Descargar La Plantilla","Choose A File":"Escoger Un Archivo",
+"CSV or tab-separated. In Excel or Google Sheets:":"CSV o separado por tabulaciones. En Excel o Google Sheets:",
+"File → Download → CSV":"Archivo → Descargar → CSV",
+". Or just select your cells, copy, and paste below.":". O simplemente seleccione sus celdas, cópielas y péguelas abajo.",
+"Paste your rows — header line first":"Pegue sus filas — la línea de encabezado primero",
+"Check The Rows":"Revisar Las Filas","Start Over":"Empezar De Nuevo",
+"What each column means":"Qué significa cada columna",
+"Column":"Columna","Required":"Obligatorio","Front Counter":"Mostrador","Add someone — name":"Agregar a alguien — nombre",
+"Starting PIN":"PIN inicial","Optional":"Opcional","Example":"Ejemplo","Notes":"Notas",
+"Line":"Línea","Check":"Revisión","Fix":"Corregir",
+"Manufacturer.":"Fabricante.",
+"Becomes the product name on the site.":"Se convierte en el nombre del producto en el sitio.",
+"A, B or C. A = like new, C = cosmetic damage.":"A, B o C. A = como nueva, C = daño cosmético.",
+"What you paid. Drives the margin floor. Never shown publicly.":"Lo que usted pagó. Define el piso de margen. Nunca se muestra al público.",
+"Your ask price. The engine marks down from here.":"Su precio de lista. El motor rebaja a partir de aquí.",
+"Your tag number. Auto-generated if blank.":"Su número de etiqueta. Se genera solo si lo deja en blanco.",
+"90-day parts & labor, 60-day parts, 30-day parts, or As-is, no warranty.":"90 días en piezas y mano de obra, 60 días en piezas, 30 días en piezas, o Tal como está, sin garantía.",
+"Say it plainly. Blank means no known flaws.":"Dígalo claro. En blanco significa sin defectos conocidos.",
+"How long you have had it. 0 = arrived today. Drives the age markdown.":"Cuánto tiempo la ha tenido. 0 = llegó hoy. Define la rebaja por antigüedad.",
+"live, reserved or sold. Defaults to live.":"live, reserved o sold. Por defecto es live.",
+"Direct link to a photo. Blank shows a category placeholder.":"Enlace directo a una foto. En blanco muestra un marcador de la categoría.",
+"Column order does not matter — the header row is what we read. Extra columns are ignored. Prices may include $ and commas.":"El orden de las columnas no importa — leemos la fila de encabezado. Las columnas de más se ignoran. Los precios pueden llevar $ y comas.",
+"On PDFs and photos:":"Sobre PDFs y fotos:",
+"a PDF packing list has no reliable structure, so this prototype does not pretend to read one. In production that is an extraction step — the PDF goes through OCR, gets mapped to these same columns, and lands in this exact review screen before anything publishes. Same for a folder of photos matched to serial numbers. Both are real builds, neither is a checkbox.":"una lista de empaque en PDF no tiene una estructura confiable, así que este prototipo no finge poder leerla. En producción eso es un paso de extracción — el PDF pasa por OCR, se mapea a estas mismas columnas y llega a esta misma pantalla de revisión antes de publicar nada. Igual para una carpeta de fotos emparejadas por número de serie. Las dos son construcciones reales, ninguna es una casilla que se palomea.",
+"Paste your rows or choose a file first":"Primero pegue sus filas o escoja un archivo",
+"No data rows found under the header":"No se encontraron filas de datos debajo del encabezado",
+"Nothing valid to import":"No hay nada válido que importar",
+"Export that sheet as CSV first, or just copy the cells and paste them":"Primero exporte esa hoja como CSV, o simplemente copie las celdas y péguelas",
+"Template downloaded — opens in Excel, Numbers or Google Sheets":"Plantilla descargada — se abre en Excel, Numbers o Google Sheets",
+// --- dispatch ---
+"Scheduled":"Agendado","Assigned":"Asignado","On The Way":"En Camino","Completed":"Completado",
+"booked, not yet assigned":"agendado, aún sin asignar","crew is on it":"la cuadrilla ya lo tiene",
+"left the shop":"salió del taller","delivered or repaired":"entregado o reparado",
+"Unassigned":"Sin asignar","Where it is in the run":"Dónde va en la ruta",
+"Who's taking it":"Quién lo lleva","Move it":"Moverlo","Day":"Día",
+"Text the customer":"Mándele mensaje al cliente",
+"Pick a day, then a window. Capacity is enforced here the same way it is on the customer side — a full window can't take another job.":"Escoja el día y luego la ventana. La capacidad se respeta aquí igual que del lado del cliente — una ventana llena no acepta otro trabajo.",
+"Pre-written for where the job is right now. Edit anything before it goes. Nothing sent yet.":"Redactado según dónde va el trabajo ahora mismo. Edite lo que quiera antes de enviarlo. Todavía no se ha enviado nada.",
+"Tap any job to move it, assign a truck or tech, walk its status, and text the customer. Capacity is enforced on this side too — a full window won't take another job.":"Toque cualquier trabajo para moverlo, asignar camión o técnico, avanzar su estado y mandarle mensaje al cliente. La capacidad también se respeta de este lado — una ventana llena no acepta otro trabajo.",
+"Texts sent from this board":"Mensajes enviados desde este tablero",
+"Nothing sent yet. Open a job, pick a status, and the text writes itself.":"Todavía no se ha enviado nada. Abra un trabajo, escoja un estado y el mensaje se escribe solo.",
+"Simulated in this prototype. In production this is a real SMS number — replies come back into the same thread, and the driver app gets a push with the stop list for the day.":"Simulado en este prototipo. En producción esto es un número real de mensajes — las respuestas regresan al mismo hilo, y la app del chofer recibe la lista de paradas del día.",
+"Moved — the draft text below now says so":"Movido — el borrador de abajo ya lo dice",
+"Status updated":"Estado actualizado","Nothing to send":"No hay nada que enviar",
+// --- profile, roles, activity ---
+"Profile & Settings":"Perfil y Ajustes","Your profile":"Su perfil",
+"Everyone who signs in can change their own PIN, name and mobile number here. What you can see and do in the rest of the console comes from your role, and only an owner can change that.":"Cualquiera que entre puede cambiar aquí su propio PIN, nombre y celular. Lo que puede ver y hacer en el resto de la consola viene de su rol, y solo un dueño puede cambiarlo.",
+"Display name":"Nombre a mostrar","New PIN":"PIN nuevo","Confirm new PIN":"Confirme el PIN nuevo",
+"Save My Profile":"Guardar Mi Perfil",
+"Leave the PIN fields blank to keep your current one. PINs are per-person — never share one, or the activity log stops meaning anything.":"Deje los campos de PIN en blanco para conservar el actual. Los PIN son por persona — nunca los comparta, o el registro de actividad deja de servir.",
+"What your role can do":"Lo que su rol puede hacer",
+"Add and view inventory":"Agregar y ver inventario","Edit and delete units":"Editar y eliminar unidades",
+"Bulk import from a file":"Importar en bloque desde un archivo",
+"See the schedule board":"Ver el tablero de citas","Move jobs and text customers":"Mover trabajos y mandar mensajes",
+"See the want list":"Ver la lista de pedidos","Change the pricing rules":"Cambiar las reglas de precio",
+"See cost and margin":"Ver costo y margen","See the payments ledger":"Ver el libro de pagos",
+"Manage staff accounts":"Administrar cuentas del personal","See the activity log":"Ver el registro de actividad",
+"Owner":"Dueño","Manager":"Gerente","Counter Staff":"Personal de Mostrador",
+"Staff accounts":"Cuentas del personal",
+"Owners only. Changing someone's role changes what they see the next time they sign in.":"Solo dueños. Cambiar el rol de alguien cambia lo que ve la próxima vez que entre.",
+"Person":"Persona","Role":"Rol","Reset PIN":"Reiniciar PIN","that's you":"ese es usted",
+"Add Staff Member":"Agregar Personal","PIN Reset":"PIN Reiniciado",
+"Give it to them in person. They can change it themselves under Profile & Settings.":"Déselo en persona. Ellos lo pueden cambiar solos en Perfil y Ajustes.",
+"Activity log":"Registro de actividad",
+"Who changed what, in order. This is the reason PINs are per-person.":"Quién cambió qué, en orden. Por esto los PIN son por persona.",
+"Nothing yet this session.":"Nada todavía en esta sesión.",
+"Signed in":"Sesión iniciada","Signed out":"Sesión cerrada",
+"Name cannot be blank":"El nombre no puede quedar en blanco",
+"PIN must be 4 digits":"El PIN debe ser de 4 dígitos",
+"The two PINs do not match":"Los dos PIN no coinciden",
+"Profile saved":"Perfil guardado","Name and staff ID are required":"Se requiere nombre e ID de personal",
+"That staff ID is already taken":"Ese ID de personal ya está ocupado",
+"Updated their profile":"Actualizó su perfil",
+"Updated their profile and changed their PIN":"Actualizó su perfil y cambió su PIN",
+"— three roles, three different consoles.":"— tres roles, tres consolas distintas.",
+"Sign in as the counter to see cost, margin, payments and the pricing rules disappear.":"Entre como mostrador para ver desaparecer costo, margen, pagos y las reglas de precio.",
 "Optional":"Opcional","e.g. mcruz":"ej. mcruz","4-digit PIN":"PIN de 4 dígitos",
 "Started making a grinding noise on the spin cycle about a week ago.":"Empezó a hacer un ruido de rechinido en el ciclo de exprimido hace como una semana.",
 "Reference":"Referencia","Type":"Tipo","What":"Qué","Amount":"Monto","Balance Due":"Saldo",
@@ -385,6 +479,8 @@ Object.assign(ES, ES2);
 
 const APPL = {washer:'una lavadora',dryer:'una secadora',refrigerator:'un refrigerador',
   range:'una estufa',dishwasher:'un lavavajillas',freezer:'un congelador',microwave:'un microondas'};
+const DOWFULL = {Monday:'Lunes',Tuesday:'Martes',Wednesday:'Miércoles',Thursday:'Jueves',
+  Friday:'Viernes',Saturday:'Sábado',Sunday:'Domingo'};
 const DOW3 = {Mon:'Lun',Tue:'Mar',Wed:'Mié',Thu:'Jue',Fri:'Vie',Sat:'Sáb',Sun:'Dom'};
 const MON3 = {Jan:'ene',Feb:'feb',Mar:'mar',Apr:'abr',May:'may',Jun:'jun',
   Jul:'jul',Aug:'ago',Sep:'sep',Oct:'oct',Nov:'nov',Dec:'dic'};
@@ -411,6 +507,22 @@ const ES_RE = [
   [/^Confirm Delivery — Pay \$(\d+)$/, "Confirmar Entrega — Pagar $$$1"],
   [/^Book Tech — Pay \$(\d+)$/, "Agendar Técnico — Pagar $$$1"],
   [/^People On The List$/, "Personas En La Lista"],
+  [/^(\d+) rows? ready to import$/, "$1 filas listas para importar"],
+  [/^(\d+) needs? fixing and will be skipped$/, "$1 necesitan corrección y se van a omitir"],
+  [/^Import (\d+) Units? To The Website$/, "Importar $1 Unidades Al Sitio"],
+  [/^(\d+) open$/, "$1 libres"],
+  [/^Send Text To (\w+)$/, "Mandar Mensaje A $1"],
+  [/^Website price after saving: \$([\d,]+)$/, "Precio en el sitio al guardar: $$$1"],
+  [/^Delivery — (.+)$/, "Entrega — $1"],
+  [/^Service Call — (.+)$/, "Visita de Servicio — $1"],
+  [/^Edit — (.+)$/, "Editar — $1"],
+  [/^(Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday), (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) (\d+)$/,
+    (m,d,mo,n)=> DOWFULL[d] + ", " + n + " " + MON3[mo]],
+  [/^Imported (\d+) units? from a file$/, "Importó $1 unidades desde un archivo"],
+  [/^(\d+) messages? already sent on this job\.$/, "$1 mensajes ya enviados en este trabajo."],
+  [/^(\d+) sent$/, "$1 enviados"],
+  [/^Lower of two rules applied \(age (\d+)% → \$([\d,]+)\s*·\s*market (\d+)% → \$([\d,]+)\)\. Margin \$([\d,]+) at (\d+)%\.$/,
+    "Se aplicó la menor de dos reglas (antigüedad $1% → $$$2 · mercado $3% → $$$4). Margen $$$5 al $6%."],
   [/^Price drop −(\d+)%$/, "Rebaja de precio −$1%"],
   [/^Buy It Now — \$([\d,]+)$/, "Cómprela Ya — $$$1"],
   [/^Or Hold It With \$(\d+) Deposit$/, "O Apártela Con $$$1 De Depósito"],
@@ -621,7 +733,7 @@ function renderMobMenu(){
       <a class="mlink" href="/service-area/"><span>Service Area</span><span class="c">16 towns &rsaquo;</span></a>
       <a class="mlink" href="/reviews/"><span>Reviews</span><span class="c">&rsaquo;</span></a>` : `
       <button class="mlink" onclick="exitStaff()"><span>Back to the website</span><span class="c">&rsaquo;</span></button>
-      ${CTABS.map(([k,l])=>`<button class="mlink ${state.ctab===k?'on':''}" onclick="ctab('${k}');closeMenu()"><span>${l}</span><span class="c">&rsaquo;</span></button>`).join('')}`}
+      ${ctabs().map(([k,l])=>`<button class="mlink ${state.ctab===k?'on':''}" onclick="ctab('${k}');closeMenu()"><span>${l}</span><span class="c">&rsaquo;</span></button>`).join('')}`}
     <a class="mcall" href="tel:+18173749412">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 3h4l2 5-2.5 1.5a12 12 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2z"/></svg>
       Call 817-374-9412</a>
@@ -657,7 +769,7 @@ function requestStaff(){
   if(state.auth){ state.mode='staff'; window.scrollTo(0,0); render(); return; }
   loginModal();
 }
-function signOut(){ closeMenu(); state.auth=false; state.mode='customer'; window.scrollTo(0,0); render(); toast('Signed out of staff console'); }
+function signOut(){ closeMenu(); logAct('Signed out'); state.auth=false; state.me=null; state.mode='customer'; window.scrollTo(0,0); render(); toast('Signed out of staff console'); }
 function loginModal(err){
   modal('Staff Sign-In', `
     <div class="loginwrap">
@@ -670,7 +782,9 @@ function loginModal(err){
       <div class="f full"><label>Staff ID</label><input type="text" id="lgUser" placeholder="e.g. mcruz" autocomplete="off"></div>
       <div class="f full"><label>PIN</label><input type="password" id="lgPin" placeholder="4-digit PIN" maxlength="4" onkeydown="if(event.key==='Enter')doLogin()"></div>
     </div>
-    <div class="demo-creds"><b>Demo credentials</b> — Staff ID <b>mcruz</b> · PIN <b>1506</b>. In production this is per-person, with roles: counter staff see inventory and scheduling, owners also see cost, margin and payments.</div>
+    <div class="demo-creds"><b>Demo credentials</b> — three roles, three different consoles.<br>
+      Owner <b>mcruz</b> / <b>1506</b> · Manager <b>ncruz</b> / <b>2053</b> · Counter <b>staff</b> / <b>1111</b>.<br>
+      Sign in as the counter to see cost, margin, payments and the pricing rules disappear.</div>
   `,'sm','',`<button class="btn b-rust" onclick="doLogin()">Sign In</button>`);
   setTimeout(()=>{ const el=$('lgUser'); if(el) el.focus(); },60);
 }
@@ -678,8 +792,12 @@ function doLogin(){
   const u=($('lgUser').value||'').trim().toLowerCase();
   const p=($('lgPin').value||'').trim();
   if(!u || !p){ loginModal('Enter a staff ID and PIN.'); return; }
-  if((u==='mcruz'||u==='ncruz'||u==='staff') && p==='1506'){
-    state.auth=true; state.mode='staff'; closeModal(); window.scrollTo(0,0); render();
+  const who = state.staff.find(x=>x.user===u && x.pin===p);
+  if(who){
+    state.auth=true; state.me=who; state.mode='staff';
+    if(!ctabs().some(([k])=>k===state.ctab)) state.ctab = ctabs()[0][0];
+    closeModal(); window.scrollTo(0,0); render();
+    logAct('Signed in');
     toast('Signed in — staff console');
   } else {
     loginModal('That staff ID and PIN combination was not recognized.');

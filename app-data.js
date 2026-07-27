@@ -62,7 +62,8 @@ const state = {
     mk('Maytag','Top-Load Washer, Deep Fill','Washer','B',245,429,440,38,'Mineral Wells Hwy','','90-day parts & labor'),
     mk('Whirlpool','24" Front-Control Dishwasher','Dishwasher','A',175,349,365,15,'Mineral Wells Hwy','','90-day parts & labor'),
   ],
-  deliveries:[], service:[], payments:[], leads:[], wants:[], orders:[]
+  deliveries:[], service:[], payments:[], leads:[], wants:[], orders:[], messages:[],
+  me:null, staff:[], activity:[]
 };
 
 
