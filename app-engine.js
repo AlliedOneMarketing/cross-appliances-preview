@@ -145,20 +145,35 @@ function seedOperations(){
 
   [['Dana Whitfield','412 Santa Fe Dr, Weatherford',0,0,'Whirlpool 4.5 cu. ft. Top-Load Washer'],
    ['Marcus Kelley','1108 E Bankhead Dr, Weatherford',0,2,'Frigidaire 25 cu. ft. Side-by-Side Refrigerator'],
+   ['Cody Renteria','88 Brock Cutoff Rd, Brock',0,3,'Bosch 300 Series 24" Dishwasher'],
    ['Teresa Nolan','205 Oak St, Millsap',1,1,'GE 30" Free-Standing Electric Range'],
    ['Bobby Ruiz','3300 Fort Worth Hwy, Hudson Oaks',1,3,'Kenmore Chest Freezer, 15 cu. ft.'],
+   ['Alma Trevino','1725 Zion Hill Rd, Weatherford',1,0,'LG French Door Refrigerator, 26 cu. ft.'],
    ['Angela Prine','77 County Rd 3690, Springtown',2,0,'Samsung Front-Load Washer, Steam'],
+   ['Roy Feltner','410 W Water St, Weatherford',2,2,'Maytag 30" Free-Standing Gas Range'],
+   ['Janelle Ochoa','2600 Peaster Hwy, Weatherford',2,4,'Samsung 7.5 cu. ft. Electric Dryer'],
    ['Hector Salinas','1420 Palo Pinto St, Weatherford',3,4,'LG Gas Dryer, Sensor Dry'],
-   ['Wanda Tibbs','902 N Main St, Weatherford',5,1,'Whirlpool Top-Freezer Refrigerator, 18 cu. ft.']
+   ['Guillermo Paz','305 Ranch House Rd, Willow Park',3,1,'Speed Queen Commercial Top-Load Washer'],
+   ['Wanda Tibbs','902 N Main St, Weatherford',5,1,'Whirlpool Top-Freezer Refrigerator, 18 cu. ft.'],
+   ['Casey Underwood','9 Poolville Rd, Poolville',5,3,'Frigidaire Upright Freezer, 20 cu. ft.'],
+   ['Belinda Marks','1140 Aledo Rd, Aledo',6,0,'LG Side-by-Side Refrigerator, 26 cu. ft.'],
+   ['Owen Castillo','77 Old Garner Rd, Weatherford',6,2,'Whirlpool Cabrio 5.3 cu. ft. Top-Load Washer'],
+   ['Sandra Pike','512 Mineral Wells Hwy, Weatherford',7,1,'Electrolux Front-Load Washer, Steam']
   ].forEach(([c,a,di,si,item])=>{
     state.deliveries.push({ref:confNum('DEL'),dateKey:k(di),slot:DELIVERY_SLOTS[si][0],customer:c,addr:a,item,notes:''});
   });
 
   [['Ramona Estes','818 Alford Dr, Weatherford',0,0,'Refrigerator — Not heating / not cooling'],
    ['Chuck Lindley','2210 Zion Hill Rd, Weatherford',0,1,'Dryer — Not heating / not cooling'],
+   ['Vince Aguilar','66 Cool School Rd, Cool',0,2,'Washer — Loud noise or shaking'],
    ['Priscilla Vance','604 Ranger Hwy, Weatherford',1,2,"Washer — Won't drain or spin"],
+   ['Nadia Boykin','1801 Fort Worth Hwy, Hudson Oaks',1,0,'Refrigerator — Leaking water'],
    ['Danny Kowalczyk','130 Bethel Rd, Aledo',2,0,'Range — Error code on display'],
-   ['Ellen Marsh','55 Old Dennis Rd, Weatherford',4,1,'Dishwasher — Leaking water']
+   ['Loretta Simms','44 Millsap Cemetery Rd, Millsap',2,1,"Dryer — Won't turn on"],
+   ['Ellen Marsh','55 Old Dennis Rd, Weatherford',4,1,'Dishwasher — Leaking water'],
+   ['Arturo Delgado','912 Santa Fe Dr, Weatherford',4,2,'Freezer — Not heating / not cooling'],
+   ['Katie Frawley','230 Azle Ave, Azle',6,0,'Range — Not heating / not cooling'],
+   ['Desmond Ivory','1500 Bankhead Hwy, Weatherford',7,1,"Dishwasher — Won't drain or spin"]
   ].forEach(([c,a,di,si,item])=>{
     state.service.push({ref:confNum('SVC'),dateKey:k(di),slot:SERVICE_SLOTS[si][0],customer:c,addr:a,item,notes:''});
   });
@@ -179,26 +194,54 @@ function seedOperations(){
    [1,'Delivery fee','Samsung French Door Refrigerator','Marisol Aguirre',79,0],
    [1,'Deposit','Kenmore Chest Freezer, 15 cu. ft.','Bobby Ruiz',50,327],
    [0,'Service call','Range — Error code','Danny Kowalczyk',89,0],
-   [0,'Counter sale','Frigidaire Over-the-Range Microwave','Pete Hollingsworth',129,0]
+   [0,'Counter sale','Frigidaire Over-the-Range Microwave','Pete Hollingsworth',129,0],
+   [6,'Counter sale','Bosch 300 Series 24" Dishwasher','Cody Renteria',599,0],
+   [6,'Delivery fee','Bosch 300 Series Dishwasher','Cody Renteria',79,0],
+   [5,'Deposit','LG French Door Refrigerator, 26 cu. ft.','Alma Trevino',50,1194],
+   [4,'Counter sale','Maytag 30" Free-Standing Gas Range','Roy Feltner',589,0],
+   [4,'Service call','Washer — Loud noise or shaking','Vince Aguilar',89,0],
+   [3,'Counter sale','Samsung 7.5 cu. ft. Electric Dryer','Janelle Ochoa',629,0],
+   [3,'Delivery fee','Samsung Electric Dryer','Janelle Ochoa',79,0],
+   [3,'Repair — parts & labor','Fridge compressor relay + labor','Nadia Boykin',186,0],
+   [2,'Deposit','Speed Queen Commercial Top-Load Washer','Guillermo Paz',50,1010],
+   [2,'Counter sale','Frigidaire Chest Freezer, 7 cu. ft.','Lupita Serrano',259,0],
+   [2,'Service call',"Dryer — Won't turn on",'Loretta Simms',89,0],
+   [1,'Counter sale','LG Side-by-Side Refrigerator, 26 cu. ft.','Belinda Marks',1229,0],
+   [1,'Delivery fee','LG Side-by-Side Refrigerator','Belinda Marks',79,0],
+   [1,'Counter sale','Insignia Over-the-Range Microwave','Toby Rasmussen',169,0],
+   [0,'Deposit','Whirlpool Cabrio 5.3 cu. ft. Top-Load Washer','Owen Castillo',50,620],
+   [0,'Counter sale','Amana 30" Gas Range','Rosalinda Vega',349,0]
   ].forEach(([d,type,desc,customer,amount,balance])=>{
     state.payments.push({ref:confNum(type.slice(0,3).toUpperCase()),type,desc,customer,amount,status:'Approved',when:ago(d),balance});
   });
 
-  [[3,'Krystal Ferrer','Acima','$1,500 – $2,500','Mineral Wells Hwy'],
-   [2,'Omar Beltran','Snap Finance','$800 – $1,500','FM 920'],
-   [1,'Latoya Simms','Acima','Under $800','Mineral Wells Hwy']
+  [[6,'Krystal Ferrer','Acima','$1,500 – $2,500','Mineral Wells Hwy'],
+   [5,'Omar Beltran','Snap Finance','$800 – $1,500','FM 920'],
+   [4,'Latoya Simms','Acima','Under $800','Mineral Wells Hwy'],
+   [3,'Jerome Whitt','Snap Finance','$800 – $1,500','Mineral Wells Hwy'],
+   [3,'Anabel Quiroz','Acima','$1,500 – $2,500','FM 920'],
+   [2,'Shanice Odell','Acima','$400 – $800','FM 920'],
+   [1,'Rudy Contreras','Snap Finance','$1,500 – $2,500','Mineral Wells Hwy'],
+   [0,'Tamika Bledsoe','Acima','$800 – $1,500','Mineral Wells Hwy']
   ].forEach(([d,name,partner,band,loc])=>{
     state.leads.push({ref:confNum('FIN'),name,partner,band,loc,when:ago(d),status:'Link sent'});
   });
 
-  [[9,'Gas Dryer','Under $400','Sherry Vasquez','(817) 555-0164'],
-   [7,'Refrigerator','$400 – $700','Dwayne Kirkpatrick','(817) 555-0119'],
-   [6,'Gas Dryer','$400 – $700','Marla Odom','(940) 555-0177'],
-   [5,'Stackable Washer/Dryer','$700 – $1,000','Curtis Lang','(817) 555-0132'],
-   [4,'Gas Dryer','Under $400','Nathan Beeler','(817) 555-0148'],
-   [3,'Chest Freezer','Under $400','Yolanda Prieto','(817) 555-0155'],
-   [2,'Refrigerator','$400 – $700','Trey Hollifield','(682) 555-0103'],
-   [1,'Gas Range','$400 – $700','Bonnie Shackelford','(817) 555-0192']
+  [[13,'Gas Dryer','Under $400','Sherry Vasquez','(817) 555-0164'],
+   [12,'Stackable Washer/Dryer','$700 – $1,000','Hollis Trent','(817) 555-0121'],
+   [11,'Gas Dryer','$400 – $700','Marla Odom','(940) 555-0177'],
+   [10,'Refrigerator','$400 – $700','Dwayne Kirkpatrick','(817) 555-0119'],
+   [9,'Gas Dryer','Under $400','Nathan Beeler','(817) 555-0148'],
+   [8,'Chest Freezer','Under $400','Yolanda Prieto','(817) 555-0155'],
+   [7,'Stackable Washer/Dryer','$700 – $1,000','Curtis Lang','(817) 555-0132'],
+   [6,'Gas Dryer','$400 – $700','Erasmo Villanueva','(682) 555-0166'],
+   [5,'Refrigerator','$400 – $700','Trey Hollifield','(682) 555-0103'],
+   [5,'Washer','Under $400','Priya Raman','(817) 555-0138'],
+   [4,'Gas Range','$400 – $700','Bonnie Shackelford','(817) 555-0192'],
+   [3,'Stackable Washer/Dryer','$1,000+','Dominique Hearn','(940) 555-0174'],
+   [2,'Refrigerator','$700 – $1,000','Silas Kimbrough','(817) 555-0187'],
+   [1,'Washer','$400 – $700','Nora Escamilla','(817) 555-0159'],
+   [0,'Gas Dryer','$400 – $700','Tyrell Beaumont','(682) 555-0145']
   ].forEach(([d,cat,band,name,phone])=>{
     state.wants.push({ref:confNum('WANT'),cat,band,name,phone,when:ago(d),status:'Waiting'});
   });
